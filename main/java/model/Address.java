@@ -2,7 +2,7 @@ package model;
 
 public class Address {
 
-	private int addId;
+	private String addId;
 	private int addUserID;
 	private String addPincode;
 	private String addStreet;
@@ -10,11 +10,11 @@ public class Address {
 	private String addCity;
 	private String addState;
 
-	public int getAddId() {
+	public String getAddId() {
 		return addId;
 	}
 
-	public void setAddId(int addId) {
+	public void setAddId(String addId) {
 		this.addId = addId;
 	}
 

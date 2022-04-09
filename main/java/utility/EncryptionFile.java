@@ -58,7 +58,7 @@ public class EncryptionFile {
 	public static void main(String args[]) throws Exception {
 		EncryptionFile td = new EncryptionFile();
 
-		String target = "jemy";
+		String target = "shivu";
 		String encrypted = td.encrypt(target);
 		String decrypted = td.decrypt(encrypted);
 

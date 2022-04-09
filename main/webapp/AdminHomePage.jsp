@@ -39,8 +39,9 @@
 							class="sr-only">(current)</span></a>
 					<li><a href="ViewUserDetails">View User<span
 							class="sr-only">(current)</span></a>
-					<li><a href="UserRegister.jsp">Add User<span
-							class="sr-only">(current)</span></a>
+					<li><a href="UserRegister.jsp?user=admin" id="addLink">Add
+							User<span class="sr-only">(current)</span>
+					</a>
 				</ul>
 				<a class="navbar-brand content-center">User Management System</a>
 				<ul class="nav navbar-nav navbar-right">
@@ -91,7 +92,9 @@
 		src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-	<script src="custom/js/datatable.js"></script>
+	<!-- <script src="custom/js/datatable.js"></script> -->
+	<script type="custom/js/adduser.js"></script>
+
 	<script>
 		$(document).ready(
 				function() {
@@ -100,6 +103,7 @@
 								"lengthMenu" : [ [ 3, 5, 7, 10, "All" ],
 										[ 3, 5, 7, 10, "All" ] ]
 							});
+
 				});
 	</script>
 

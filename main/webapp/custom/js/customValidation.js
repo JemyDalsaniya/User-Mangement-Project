@@ -243,8 +243,6 @@ $(document).ready(function() {
 		}
 	}
 
-
-
 	function check_landmark(selector) {
 
 		var landmark = $(selector + " #landmark").val();
@@ -353,7 +351,6 @@ $(document).ready(function() {
 			$("#cpwd").css("border-bottom", "4px solid #F90A0A");
 			confirm_password_error = true;
 		}
-
 		else if (password !== retype_password) {
 			$("#confirm_password_error").html("Passwords Did not Matched").css("color", "red");
 			$("#confirm_password_error").show();
@@ -390,7 +387,6 @@ $(document).ready(function() {
 			$("#contact_error").hide();
 			$("#contact").css("border-bottom", "4px solid #34F458");
 		}
-
 	}
 
 	function check_radio() {
@@ -416,44 +412,33 @@ $(document).ready(function() {
 		}
 	}
 
-	/*function check_file() {
-		console.log("inside check file", $("#img").val());
-		var file = $("#img").val();
-		var fileType = file.split('.').pop().toLowerCase();
-		if ($.inArray(fileType, ['png', 'jpg', 'jpeg']) == -1) {
-			$("#image_error").html("Please select valid file!!").css("color", "red");
-			$("#image_error").show();
-			image_error = true;
-		}
-	}*/
-
 	function check_file() {
 		console.log("inside check file", $("#img").val());
 		var file = $("#img").val();
 		var fileType = file.split('.').pop().toLowerCase();
-		if (file != null) {
+		console.log($("#img")[0].files.length !== 0);
+		if ($("#img")[0].files.length !== 0) {
 			$("#default_img").css("display", "none");
-			//img_preview(this);
-
 		}
 		else if ($.inArray(fileType, ['png', 'jpg', 'jpeg']) == -1) {
-
 			$("#image_error").html("Please select valid file!!").css("color", "red");
 			$("#image_error").show();
+			$("#image_preview").css("display", "none");
 			image_error = true;
-
 		}
-	}
+
+	}	
 
 	function img_preview(input) {
+		console.log("image preview called");
+		console.log("input",input);
 		if (input.files && input.files[0]) {
 			var file = new FileReader();
 			file.onload = function(e) {
-				$("#image_preview").attr('src', e.target.result).css({ "max-width": "170px" });
+				$("#image_preview").attr('src', e.target.result).css({ "display": "block", "max-width": "170px", "max-height": "170px" });
 			}
 			file.readAsDataURL(input.files[0]);
-		}
-
+		} 
 	}
 
 	function check_date() {
@@ -496,11 +481,6 @@ $(document).ready(function() {
 		check_checkbox();
 		check_file();
 		checkAllAddress();
-		//check_pincode();
-		//check_landmark();
-		//check_street();
-		//check_city();
-		//check_state();
 		check_date();
 
 		if (name_error === false && email_error === false && password_error === false && confirm_password_error === false && contact_error === false &&
@@ -514,6 +494,7 @@ $(document).ready(function() {
 		}
 	});
 
+	//check validation for login page
 	$("#login_form").submit(function() {
 		email_error = false;
 		password_error = false;
@@ -534,6 +515,7 @@ $(document).ready(function() {
 			$("#pwd").css("border-bottom", "1px solid #ced4da");
 		});
 		$("#pwd").keyup(function() {
+
 			check_password();
 		});
 		$("#pwd").focus(function() {
@@ -556,6 +538,7 @@ $(document).ready(function() {
 
 	});
 
+	//check validation for forget password page
 	$("#forget_form").submit(function() {
 		alert("function called");
 
@@ -602,7 +585,7 @@ $(document).ready(function() {
 
 
 		if (email_error === false && password_error === false && confirm_password_error === false) {
-			alert("Login successfull..");
+			alert("Password Updated successfully");
 			return true;
 		} else {
 			alert("Please Fill the form Correctly");

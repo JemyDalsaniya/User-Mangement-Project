@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.User;
 import service.UserService;
 import service.UserServiceImpl;
 
@@ -30,15 +29,12 @@ public class ChangeRole extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		User user = new User();
 		UserService service = new UserServiceImpl();
 		String id = request.getParameter("trid");
 		System.out.println("id inside changeRole" + id);
 
 		try {
 			service.changeRole(id);
-//			RequestDispatcher req = request.getRequestDispatcher("/AdminHomePage.jsp");
-//			req.forward(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -23,7 +23,6 @@ public class UserDaoImpl implements UserDao {
 		try {
 			conn = MyConnection.getInstance().getConnection();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -206,27 +205,51 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void updateProfile(User user) {
-
+	public int updateProfile(User user) {
+		int id = 0;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(
-					"UPDATE user SET name = ?,email=?,contact =?,gender=?,hobby=?,dob=?,profile_img=? WHERE user_id = ?");
+					"UPDATE user SET name = ?,contact =?,gender=?,hobby=?,dob=?,profile_img=? WHERE email = ?");
 
 			pstmt.setString(1, user.getUserName());
-			pstmt.setString(2, user.getUserEmail());
-			pstmt.setString(3, user.getUserContact());
-			pstmt.setString(4, user.getUserGender());
-			pstmt.setString(5, user.getUserHobby());
-			pstmt.setString(6, user.getUserDOB());
-			pstmt.setBlob(7, user.getUserProfile());
-			pstmt.setInt(8, user.getUserId());
+			pstmt.setString(2, user.getUserContact());
+			pstmt.setString(3, user.getUserGender());
+			pstmt.setString(4, user.getUserHobby());
+			pstmt.setString(5, user.getUserDOB());
+			pstmt.setBlob(6, user.getUserProfile());
+			pstmt.setString(7, user.getUserEmail());
+			// pstmt.setInt(8, user.getUserId());
 
 			pstmt.executeUpdate();
-
+			PreparedStatement stmt = conn.prepareStatement("select user_id from user where email=?");
+			stmt.setString(1, user.getUserEmail());
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				id = rs.getInt("user_id");
+			}
+			System.out.println("id inside update profile:" + id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return id;
+	}
 
+	@Override
+	public boolean checkMail(String email) {
+		System.out.println("user dao impl check Mail called");
+
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement("select email from user where email=?");
+			pstmt.setString(1, email);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

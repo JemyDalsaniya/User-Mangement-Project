@@ -65,6 +65,8 @@ public interface UserDao {
 	 */
 	public List<User> displaySpecificUser(User user) throws SQLException;
 
-	public void updateProfile(User user);
+	public int updateProfile(User user);
+
+	public boolean checkMail(String email);
 
 }

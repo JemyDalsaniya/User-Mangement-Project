@@ -25,7 +25,7 @@ public class MyConnection {
 		if (conn.isClosed()) {
 			System.out.println("connection is closed!");
 		} else {
-			System.out.println("Connected to database..");
+			// System.out.println("Connected to database..");
 		}
 		return conn;
 	}

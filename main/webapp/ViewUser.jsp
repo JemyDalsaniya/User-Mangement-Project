@@ -133,10 +133,10 @@ input:checked+.slider:before {
 						<td><img src="data:image/jpg;base64,${user.base64Image}"
 							width="100" height="100"></td>
 						<td>${user.userDOB}</td>
-						<td><a href="#"><i class="fa fa-pencil-square-o fa-lg "
-								aria-hidden="true"></i></a> &nbsp;&nbsp;<a id="${user.userId}"
-							class="delete"><i class="fa fa-trash fa-lg "
-								aria-hidden="true"></i></a></td>
+						<td><a href="UserRegister.jsp?user=adminEdit"><i
+								class="fa fa-pencil-square-o fa-lg " aria-hidden="true"></i></a>
+							&nbsp;&nbsp;<a id="${user.userId}" class="delete"><i
+								class="fa fa-trash fa-lg " aria-hidden="true"></i></a></td>
 						<td>
 							<!-- Default switch -->
 							<div class="custom-control custom-switch">
@@ -151,8 +151,6 @@ input:checked+.slider:before {
 			</tbody>
 		</table>
 	</div>
-
-	-->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -165,21 +163,20 @@ input:checked+.slider:before {
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 	<!-- <script src="custom/js/datatable.js"></script>
- -->	<!-- 	<script src="custom/js/change_role.js"></script>
+ -->
+	<!-- 	<script src="custom/js/change_role.js"></script>
  -->
 	<script>
 		$(document).ready(function() {
-			
 			
 			$('#example').DataTable({
 				"lengthMenu": [[3, 5, 7, 10, "All"], [3, 5, 7, 10, "All"]]
 			});
 			
-			$(".delete").on("click", function() {
+			$(document).on("click", ".delete", function() {
 
 				var rowToDelete = this;
 				var userId = +this.id;
-				alert(userId);
 				$.ajax({
 					url : "DeleteUser",
 					type : "post",
@@ -195,9 +192,9 @@ input:checked+.slider:before {
 				});
 			});
 			
-			$(".role_admin").on("change", function() {
-				//var id = $(this).val();
-				// var trid = $(this).closest('tr').attr('id'); // table row ID 
+			$(document).on("change",".role_admin" , function() {
+
+				var rowToDelete = this;
 				var trid = +this.id;
 				$.ajax({
 					url : "ChangeRole",
@@ -207,6 +204,9 @@ input:checked+.slider:before {
 					}),
 					success : function(data) {
 						alert("sucess");
+						$(rowToDelete).closest('tr').fadeOut(100, function() {
+							$(this).remove();
+						});
 					}
 				})
 			});

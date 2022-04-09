@@ -13,7 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.UserDaoImpl;
+import model.Address;
 import model.User;
+import service.AddressService;
+import service.AddressServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
 import utility.EncryptionFile;
@@ -40,7 +43,10 @@ public class Userlogin extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("inside do post....");
 		UserService service = new UserServiceImpl();
+		AddressService addservice = new AddressServiceImpl();
+
 		User user = new User();
+		Address address = new Address();
 		response.setContentType("text/html");
 		HttpSession session = request.getSession();
 		EncryptionFile ee = null;
@@ -57,6 +63,7 @@ public class Userlogin extends HttpServlet {
 
 		List<User> list1;
 		List<User> list2;
+		List<Address> listAddress;
 
 		if (isValid) {
 			if (user.getUserStatus()) {
@@ -72,13 +79,15 @@ public class Userlogin extends HttpServlet {
 			} else {
 				System.out.println("inside else part");
 				try {
-					System.out.println("inside user part...");
 					list2 = service.displaySpecificUser(user);
-					System.out.println("list2" + list2);
+					int id = list2.get(0).getUserId();
+					session.setAttribute("CurrentUser", user);
+					listAddress = addservice.getAllAddress(address, id);
 					logger.info("list2" + list2);
-					System.out.println("list2" + list2);
+					logger.info("address list" + listAddress);
 
 					session.setAttribute("specificUserData", list2);
+					session.setAttribute("AddressList", listAddress);
 					session.setAttribute("user", user);
 					RequestDispatcher req = request.getRequestDispatcher("UserHomePage.jsp");
 					req.forward(request, response);

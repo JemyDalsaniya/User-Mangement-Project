@@ -7,10 +7,12 @@ import java.util.Map;
 import dao.UserDao;
 import dao.UserDaoImpl;
 import model.User;
+import utility.Validation;
 
 public class UserServiceImpl implements UserService {
 
 	UserDao object = new UserDaoImpl();
+	Validation validation = new Validation();
 
 	// method of userDaoImpl called..
 	@Override
@@ -59,21 +61,26 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void validateUserDetails(User user, Map<String, String> messages) {
-
-	}
-
-	@Override
 	public List<User> displaySpecificUser(User user) throws SQLException {
-		System.out.println("list inside user service impl....");
 		List<User> list = object.displaySpecificUser(user);
-		System.out.println("list inside user service impl" + list);
 		return list;
 	}
 
 	@Override
-	public void updateProfile(User user) {
-		object.updateProfile(user);
+	public int updateProfile(User user) {
+		int id = object.updateProfile(user);
+		return id;
+	}
+
+	@Override
+	public boolean checkMail(String email) {
+		boolean obj = object.checkMail(email);
+		return obj;
+	}
+
+	@Override
+	public void validateUserDetails(User user, Map<String, String> messages) {
+		validation.validateUserDetails(user, messages);
 	}
 
 }

@@ -24,13 +24,6 @@ public interface UserService {
 	/**
 	 * 
 	 * @param user
-	 * @param messages
-	 */
-	public void validateUserDetails(User user, Map<String, String> messages);
-
-	/**
-	 * 
-	 * @param user
 	 * @return
 	 * @throws SQLException
 	 */
@@ -72,6 +65,10 @@ public interface UserService {
 	 */
 	public List<User> displaySpecificUser(User user) throws SQLException;
 
-	public void updateProfile(User user);
+	public int updateProfile(User user);
+
+	public boolean checkMail(String email);
+
+	public void validateUserDetails(User user, Map<String, String> messages);
 
 }

@@ -3,18 +3,19 @@ package controller;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import model.Address;
@@ -50,18 +51,36 @@ public class UserRegister extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		doPost(request, response);
+		// to check if email already exist or not
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		UserService service = new UserServiceImpl();
+		String email = request.getParameter("email");
+
+		boolean flag = service.checkMail(email);
+		System.out.println("flag value:" + flag);
+		if (flag) {
+			out.write("true");
+		} else {
+			out.write("false");
+
+		}
 
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		int id = 0;
+		System.out.println("user register called");
+
 		UserService service = new UserServiceImpl();
 		AddressService addservice = new AddressServiceImpl();
 		User user = new User();
 		Map<String, String> messages = new HashMap<String, String>();
 		request.setAttribute("messages", messages);
+		service.validateUserDetails(user, messages);
 
 		EncryptionFile ee = null;
 		try {
@@ -90,14 +109,15 @@ public class UserRegister extends HttpServlet {
 		String hobbies = "";
 		String[] hobby = request.getParameterValues("options");
 		for (int i = 0; i < hobby.length; i++) {
-			hobbies += hobby[i] + " ";
+			hobbies += hobby[i];
 		}
 		user.setUserHobby(hobbies);
 
 		String encrypt_pwd = ee.encrypt(request.getParameter("password"));
 		user.setUserPassword(encrypt_pwd);
-		int id = service.userRegister(user);
+		// if (messages.isEmpty()) {
 
+		id = service.userRegister(user);
 		String[] street = request.getParameterValues("address[]");
 		String[] landmark = request.getParameterValues("landmark[]");
 		String[] pincode = request.getParameterValues("pincode[]");
@@ -117,7 +137,13 @@ public class UserRegister extends HttpServlet {
 			addservice.addAddress(id, addobj);
 			count++;
 		}
-		RequestDispatcher req = request.getRequestDispatcher("/Userlogin.jsp");
-		req.forward(request, response);
+
+		HttpSession session = request.getSession();
+		String uName = (String) session.getAttribute("Name");
+		if (uName != null) {
+			response.sendRedirect("AdminHomePage.jsp");
+		} else {
+			response.sendRedirect("Userlogin.jsp");
+		}
 	}
 }
