@@ -16,6 +16,7 @@ public class AddressDaoImpl implements AddressDao {
 	private static Logger logger = Logger.getLogger(UserDaoImpl.class.getName());
 
 	Connection conn;
+	PreparedStatement pstmt;
 
 	public AddressDaoImpl() {
 		try {
@@ -29,7 +30,7 @@ public class AddressDaoImpl implements AddressDao {
 	@Override
 	public void addAddress(int userId, Address address) {
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(
+			pstmt = conn.prepareStatement(
 					"insert into address(street,landmark,pincode,city,state,user_id) values(?,?,?,?,?,?)");
 
 			pstmt.setString(1, address.getAddStreet());
@@ -50,7 +51,7 @@ public class AddressDaoImpl implements AddressDao {
 	public List<Address> getAllAddress(int userId) throws SQLException {
 		List<Address> list = new ArrayList<Address>();
 
-		PreparedStatement pstmt = conn.prepareStatement("select * from address where user_id = ?");
+		pstmt = conn.prepareStatement("select * from address where user_id = ?");
 
 		pstmt.setInt(1, userId);
 		ResultSet rs = pstmt.executeQuery();
@@ -71,10 +72,16 @@ public class AddressDaoImpl implements AddressDao {
 
 	}
 
-	public void deleteAddress(int id) throws SQLException {
-		PreparedStatement pstmt = conn.prepareStatement("delete from address WHERE user_id = ?");
-		pstmt.setInt(1, id);
-		pstmt.executeUpdate();
+	public void deleteAddress(String addressId[]) {
+		try {
+			for (int counter = 0; counter < addressId.length; counter++) {
+				pstmt = conn.prepareStatement("delete from address where address_id=?");
+				pstmt.setString(1, addressId[counter]);
+				pstmt.executeUpdate();
+			}
+		} catch (Exception e) {
+			logger.info(e.toString());
+		}
 
 	}
 
@@ -86,7 +93,15 @@ public class AddressDaoImpl implements AddressDao {
 		if (address.getAddId().isEmpty()) {
 			addAddress(id, address);
 		}
-		PreparedStatement pstmt = conn.prepareStatement(
+		// to delete address
+		String remove = address.getRemoveAddressId();
+		String[] removeId = remove.split(" ");
+
+		if (!remove.isEmpty()) {
+			deleteAddress(removeId);
+		}
+
+		pstmt = conn.prepareStatement(
 				"UPDATE address SET street = ?,landmark=?,pincode =?,city=?,state=? WHERE user_id = ? and address_id=?");
 		pstmt.setString(1, address.getAddStreet());
 		pstmt.setString(2, address.getAddLandmark());
@@ -97,7 +112,7 @@ public class AddressDaoImpl implements AddressDao {
 		pstmt.setString(7, address.getAddId());
 
 		pstmt.executeUpdate();
-		logger.info("updated values inside address dao impl" + address);
+		// logger.info("updated values inside address dao impl" + address);
 
 	}
 

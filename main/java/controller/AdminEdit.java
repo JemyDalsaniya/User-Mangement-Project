@@ -51,7 +51,7 @@ public class AdminEdit extends HttpServlet {
 			List<Address> listAddress = addService.getAllAddress(Integer.parseInt(userId));
 			System.out.println("Addresslist:" + listAddress);
 			session.setAttribute("AddressList", listAddress);
-			RequestDispatcher req = request.getRequestDispatcher("UserRegister.jsp?profile=adminEdit");
+			RequestDispatcher req = request.getRequestDispatcher("UserRegister.jsp?user=adminEdit&profile=user");
 			req.forward(request, response);
 
 		} catch (SQLException e) {

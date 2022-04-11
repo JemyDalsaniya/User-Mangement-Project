@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
 	// implementation of user login
 	@Override
 	public boolean compareUserLogin(User user) {
-		logger.info("User Data" + user.toString());
+		// logger.info("User Data" + user.toString());
 		try {
 			PreparedStatement pstmt = conn.prepareStatement("select * from user where email=? and password = ?");
 			pstmt.setString(1, user.getUserEmail());
@@ -98,7 +98,7 @@ public class UserDaoImpl implements UserDao {
 
 		List<User> list = new ArrayList<User>();
 		PreparedStatement pstmt = conn.prepareStatement("select * from user where isAdmin=0");
-		logger.info("User Data" + user.toString());
+		// logger.info("User Data" + user.toString());
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			user = new User();
@@ -133,7 +133,7 @@ public class UserDaoImpl implements UserDao {
 	public List<User> displayAdmin(User user) throws SQLException {
 		List<User> list = new ArrayList<User>();
 		PreparedStatement pstmt = conn.prepareStatement("select * from user where isAdmin=1");
-		logger.info("User Data" + user.toString());
+		// logger.info("User Data" + user.toString());
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			user = new User();

@@ -9,6 +9,7 @@ public class Address {
 	private String addLandmark;
 	private String addCity;
 	private String addState;
+	private String removeAddressId;
 
 	public String getAddId() {
 		return addId;
@@ -64,6 +65,15 @@ public class Address {
 
 	public void setAddState(String addState) {
 		this.addState = addState;
+	}
+
+	public void setRemoveAddressId(String removeAddressId) {
+		this.removeAddressId = removeAddressId;
+
+	}
+
+	public String getRemoveAddressId() {
+		return removeAddressId;
 	}
 
 	@Override

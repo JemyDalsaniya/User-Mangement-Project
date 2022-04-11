@@ -159,34 +159,33 @@ User cuser = (User) session.getAttribute("CurrentUser");
 			<div class="row form-row">
 				<div class="col-md-6">
 
-						<!-- Hobby -->
- 						<label>Hobby</label>
-						<br />
-						  <div class="form-check">
-							<input type="checkbox" class="form-check-input" id="check1"
-								name="options" value="Sports"
-								${fn:contains(user.userHobby, 'Sports')  ? 'checked' : ''}> <label
-								class="form-check-label" for="check1">Sports</label>
-						</div>
-						 <div class="form-check">
-							<input type="checkbox" class="form-check-input" id="check2"
-								name="options" value="Study"
-								${fn:contains(user.userHobby, 'Study')  ? 'checked' : ''}> <label
-								class="form-check-label" for="check2">Study</label>
-						</div>
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input" id="check3"
-								name="options" value="Dance"
-								${fn:contains(user.userHobby, 'Dance')  ? 'checked' : ''}> <label
-								class="form-check-label">Dance</label>
-						</div>
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input" id="check4"
-								name="options" value="Music"
-								${fn:contains(user.userHobby, 'Music')  ? 'checked' : ''}> <label
-								class="form-check-label">Music</label> <br /> <span
-								id="check_error">${messages.hobby}</span>
-						</div>  
+					<!-- Hobby -->
+					<label>Hobby</label> <br />
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="check1"
+							name="options" value="Sports"
+							${fn:contains(user.userHobby, 'Sports')  ? 'checked' : ''}>
+						<label class="form-check-label" for="check1">Sports</label>
+					</div>
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="check2"
+							name="options" value="Study"
+							${fn:contains(user.userHobby, 'Study')  ? 'checked' : ''}>
+						<label class="form-check-label" for="check2">Study</label>
+					</div>
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="check3"
+							name="options" value="Dance"
+							${fn:contains(user.userHobby, 'Dance')  ? 'checked' : ''}>
+						<label class="form-check-label">Dance</label>
+					</div>
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="check4"
+							name="options" value="Music"
+							${fn:contains(user.userHobby, 'Music')  ? 'checked' : ''}>
+						<label class="form-check-label">Music</label> <br /> <span
+							id="check_error">${messages.hobby}</span>
+					</div>
 
 				</div>
 				<div class="col-md-6">
@@ -207,7 +206,7 @@ User cuser = (User) session.getAttribute("CurrentUser");
 					<div class="card"></div>
 					<c:choose>
 						<c:when
-							test="${(profile == 'userEdit') || (profile == 'adminEdit') }">
+							test="${(profile == 'admin') || (profile == 'userEdit') || (profile == 'adminEdit')}">
 							<c:forEach items="${AddressList}" var="address" varStatus="count">
 								<div id="main-container">
 									<div class="panel card container-item">
@@ -307,6 +306,11 @@ User cuser = (User) session.getAttribute("CurrentUser");
 								</div>
 
 							</c:forEach>
+							<div>
+								<a class="btn btn-success btn-sm" id="add-more"
+									href="javascript:;" role="button"><i class="fa fa-plus"></i>
+									Add address</a>
+							</div>
 						</c:when>
 						<c:otherwise>
 							<div id="main-container">
@@ -405,13 +409,13 @@ User cuser = (User) session.getAttribute("CurrentUser");
 									</div>
 								</div>
 							</div>
+							<div>
+								<a class="btn btn-success btn-sm" id="add-more"
+									href="javascript:;" role="button"><i class="fa fa-plus"></i>
+									Add address</a>
+							</div>
 						</c:otherwise>
 					</c:choose>
-					<div>
-						<a class="btn btn-success btn-sm" id="add-more"
-							href="javascript:;" role="button"><i class="fa fa-plus"></i>
-							Add address</a>
-					</div>
 				</div>
 			</div>
 
@@ -500,7 +504,7 @@ User cuser = (User) session.getAttribute("CurrentUser");
 	<script type="text/javascript">
 		var parsed = new URL(location);
 		var uname = parsed.searchParams.get("user");
-		if (uname === 'admin') {
+		if (uname === 'ADD') {
 			$(".btn_hide").hide();
 		} else if (uname === 'adminEdit') {
 			$(".btn_hide").hide();
@@ -525,6 +529,20 @@ User cuser = (User) session.getAttribute("CurrentUser");
 			$("#mail").attr("readonly", "readonly");
 			$("#pwd").attr("readonly", "true");
 			$("#cpwd").attr("readonly", "true");
+			$("#image_preview").css({
+				"display" : "block",
+				"max-width" : "170px",
+				"max-width" : "170px"
+			});
+		} else if (uname === 'admin') {
+			$(".btn_hide").hide();
+			$("#default_img").hide();
+			$(".header_tag").text("Update Profile");
+			$(".register_btn").prop("value", "Update");
+			$("#registration_form").attr("action", "UpdateProfile");
+			/* $("#mail").attr("readonly", "readonly");
+			$("#pwd").attr("readonly", "true");
+			$("#cpwd").attr("readonly", "true"); */
 			$("#image_preview").css({
 				"display" : "block",
 				"max-width" : "170px",

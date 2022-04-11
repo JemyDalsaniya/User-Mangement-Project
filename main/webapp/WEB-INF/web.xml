@@ -113,7 +113,7 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/Logout</url-pattern>
   </servlet-mapping>
-  <filter>
+  <!-- <filter>
     <display-name>SessionFilter</display-name>
     <filter-name>SessionFilter</filter-name>
     <filter-class>controller.SessionFilter</filter-class>
@@ -121,7 +121,7 @@
   <filter-mapping>
     <filter-name>SessionFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping> 
+  </filter-mapping> --> 
   <servlet>
     <description></description>
     <display-name>AdminEdit</display-name>

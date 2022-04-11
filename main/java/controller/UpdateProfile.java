@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +47,8 @@ public class UpdateProfile extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		System.out.println("inside update profile");
 		try {
 			HttpSession session = request.getSession();
 			// to get address list
@@ -64,12 +67,9 @@ public class UpdateProfile extends HttpServlet {
 				e.printStackTrace();
 			}
 			Part file = request.getPart("img");
-			System.out.println("val file:" + file.getSize());
 			if (file.getSize() == 0) {
-				System.out.println("inside if condition");
 
 				String base64Image = request.getParameter("oldImage");
-				System.out.println("base64Image");
 				InputStream targetStream = new ByteArrayInputStream(base64Image.getBytes());
 				InputStream is = Base64.getDecoder().wrap(targetStream);
 				user.setUserProfile(is);
@@ -78,6 +78,7 @@ public class UpdateProfile extends HttpServlet {
 				InputStream imgContent = file.getInputStream();
 				user.setUserProfile(imgContent);
 			}
+
 			user.setUserName(request.getParameter("name"));
 			user.setUserEmail(request.getParameter("email"));
 			user.setUserContact(request.getParameter("contact"));
@@ -93,13 +94,22 @@ public class UpdateProfile extends HttpServlet {
 			String encrypt_pwd = ee.encrypt(request.getParameter("password"));
 			user.setUserPassword(encrypt_pwd);
 			int id = service.updateProfile(user);
-			logger.info("id" + id);
+			logger.info("admin id" + id);
+			logger.info("admin email" + user.getUserEmail());
 
-			/*
-			 * int addId[] = new int[addList.size()]; for (int i = 0; i < addList.size();
-			 * i++) { addId[i] = addList.get(i).getAddId(); }
-			 */
+			String addrId[] = new String[addList.size()];
+			for (int i = 0; i < addList.size(); i++) {
+				addrId[i] = addList.get(i).getAddId();
+
+			}
 			String[] addressId = request.getParameterValues("addressId[]");
+			List<String> addressIdList = Arrays.asList(addressId);
+			String remove = "";
+			for (int i = 0; i < addrId.length; i++) {
+				if (!addressIdList.contains(addrId[i])) {
+					remove += addrId[i] + " ";
+				}
+			}
 			String[] street = request.getParameterValues("address[]");
 			String[] landmark = request.getParameterValues("landmark[]");
 			String[] pincode = request.getParameterValues("pincode[]");
@@ -109,16 +119,17 @@ public class UpdateProfile extends HttpServlet {
 			int count = 0;
 			while (count < street.length) {
 				// addobj.setAddUserID();
+
 				address.setAddId(addressId[count]);
 				address.setAddStreet(street[count]);
 				address.setAddLandmark(landmark[count]);
 				address.setAddCity(city[count]);
 				address.setAddState(state[count]);
 				address.setAddPincode(pincode[count]);
+				address.setRemoveAddressId(remove);
 
 				addservice.updateAddress(address, id);
 				logger.info("address values inside update servlet" + address);
-				// addservice.addAddress(id, addobj);
 				count++;
 			}
 
@@ -128,6 +139,8 @@ public class UpdateProfile extends HttpServlet {
 				response.sendRedirect("AdminHomePage.jsp");
 			} else if (uName.equals("userEdit")) {
 				response.sendRedirect("UserHomePage.jsp");
+			} else if (uName.equals("admin")) {
+				response.sendRedirect("AdminHomePage.jsp");
 			} else {
 				response.sendRedirect("Userlogin.jsp");
 			}

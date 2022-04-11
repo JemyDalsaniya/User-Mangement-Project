@@ -83,8 +83,8 @@ public class Userlogin extends HttpServlet {
 					int id = list2.get(0).getUserId();
 					session.setAttribute("CurrentUser", user);
 					listAddress = addservice.getAllAddress(id);
-					logger.info("list2" + list2);
-					logger.info("address list" + listAddress);
+//					logger.info("list2" + list2);
+//					logger.info("address list" + listAddress);
 
 					session.setAttribute("specificUserData", list2);
 					session.setAttribute("AddressList", listAddress);
