@@ -252,4 +252,28 @@ public class UserDaoImpl implements UserDao {
 		return false;
 	}
 
+	@Override
+	public List<User> getUserDetails(String userId) throws SQLException {
+		List<User> list = new ArrayList<User>();
+		PreparedStatement pstmt = conn.prepareStatement("select * from user where user_id = ?");
+		pstmt.setString(1, userId);
+		ResultSet rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			User user = new User();
+			user.setUserName(rs.getString("name"));
+			user.setUserEmail(rs.getString("email"));
+			user.setUserContact(rs.getString("contact"));
+			user.setUserDOB(rs.getString("dob"));
+			user.setUserGender(rs.getString("gender"));
+			Blob blob = rs.getBlob("profile_img");
+
+			byte[] photo = blob.getBytes(1, (int) blob.length());
+			String base64Image = Base64.getEncoder().encodeToString(photo);
+			user.setBase64Image(base64Image);
+			user.setUserHobby(rs.getString("hobby"));
+			list.add(user);
+		}
+		return list;
+	}
 }

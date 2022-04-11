@@ -60,7 +60,7 @@ td, h2 {
 							class="sr-only">(current)</span></a>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="Userlogin.jsp">Logout</a></li>
+					<li><a href="Logout">Logout</a></li>
 				</ul>
 			</div>
 		</div>

@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+
 <%@ page import="model.User"%>
 <%@ page import="model.Address"%>
 
@@ -157,33 +158,35 @@ User cuser = (User) session.getAttribute("CurrentUser");
 
 			<div class="row form-row">
 				<div class="col-md-6">
-					<!-- Hobby -->
-					<label>Hobby</label><br />
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="check1"
-							name="options" value="Sports"
-							${user.userHobby eq 'Sports' ? 'checked' : ''}> <label
-							class="form-check-label" for="check1">Sports</label>
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="check2"
-							name="options" value="Study"
-							${user.userHobby eq 'Study' ? 'checked' : ''}> <label
-							class="form-check-label" for="check2">Study</label>
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="check3"
-							name="options" value="Dance"
-							${user.userHobby eq 'Dance' ? 'checked' : ''}> <label
-							class="form-check-label">Dance</label>
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="check4"
-							name="options" value="Music"
-							${user.userHobby eq 'Music' ? 'checked' : ''}> <label
-							class="form-check-label">Music</label> <br /> <span
-							id="check_error">${messages.hobby}</span>
-					</div>
+
+						<!-- Hobby -->
+ 						<label>Hobby</label>
+						<br />
+						  <div class="form-check">
+							<input type="checkbox" class="form-check-input" id="check1"
+								name="options" value="Sports"
+								${fn:contains(user.userHobby, 'Sports')  ? 'checked' : ''}> <label
+								class="form-check-label" for="check1">Sports</label>
+						</div>
+						 <div class="form-check">
+							<input type="checkbox" class="form-check-input" id="check2"
+								name="options" value="Study"
+								${fn:contains(user.userHobby, 'Study')  ? 'checked' : ''}> <label
+								class="form-check-label" for="check2">Study</label>
+						</div>
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="check3"
+								name="options" value="Dance"
+								${fn:contains(user.userHobby, 'Dance')  ? 'checked' : ''}> <label
+								class="form-check-label">Dance</label>
+						</div>
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="check4"
+								name="options" value="Music"
+								${fn:contains(user.userHobby, 'Music')  ? 'checked' : ''}> <label
+								class="form-check-label">Music</label> <br /> <span
+								id="check_error">${messages.hobby}</span>
+						</div>  
 
 				</div>
 				<div class="col-md-6">
@@ -203,7 +206,8 @@ User cuser = (User) session.getAttribute("CurrentUser");
 				<div class="customer-form">
 					<div class="card"></div>
 					<c:choose>
-						<c:when test="${profile == 'userEdit' || profile == 'adminEdit' }">
+						<c:when
+							test="${(profile == 'userEdit') || (profile == 'adminEdit') }">
 							<c:forEach items="${AddressList}" var="address" varStatus="count">
 								<div id="main-container">
 									<div class="panel card container-item">
@@ -412,7 +416,7 @@ User cuser = (User) session.getAttribute("CurrentUser");
 			</div>
 
 			<div class="row btn-margin form-row">
-			
+
 				<div class="col-sm-1  submit_btn">
 
 					<input type="submit"
@@ -507,7 +511,11 @@ User cuser = (User) session.getAttribute("CurrentUser");
 			$("#mail").attr("readonly", "readonly");
 			$("#pwd").attr("readonly", "readonly");
 			$("#cpwd").attr("readonly", "readonly");
-			$("#image_preview").css({"display":"block","max-width":"170px","max-height":"170px"});			
+			$("#image_preview").css({
+				"display" : "block",
+				"max-width" : "170px",
+				"max-height" : "170px"
+			});
 		} else if (uname === 'userEdit') {
 			$(".btn_hide").hide();
 			$("#default_img").hide();
@@ -517,7 +525,11 @@ User cuser = (User) session.getAttribute("CurrentUser");
 			$("#mail").attr("readonly", "readonly");
 			$("#pwd").attr("readonly", "true");
 			$("#cpwd").attr("readonly", "true");
-			$("#image_preview").css({"display":"block","max-width":"170px","max-width":"170px"});			
+			$("#image_preview").css({
+				"display" : "block",
+				"max-width" : "170px",
+				"max-width" : "170px"
+			});
 		}
 	</script>
 	<jsp:include page="footer.jsp" />

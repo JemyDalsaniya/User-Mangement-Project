@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+function preventBack(){window.history.forward();}
+setTimeout("preventBack()", 0);
+window.onunload=function(){null};
+/* $("#login_form").submit(function(e) {
+    e.preventDefault(); // <==stop page refresh==>
+}); */
+</script>
 <meta charset="ISO-8859-1">
 <title>User login form</title>
 <link rel="stylesheet"
@@ -79,7 +87,7 @@
 	<!-- jQuery CDN -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="custom/js/customValidation.js"></script>
+	<script src="custom/js/loginValidation.js"></script>
 	<%--  	<%@ include file="footer.jsp" %>  
  --%>
 </body>

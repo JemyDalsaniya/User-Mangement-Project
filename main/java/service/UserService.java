@@ -71,4 +71,6 @@ public interface UserService {
 
 	public void validateUserDetails(User user, Map<String, String> messages);
 
+	public List<User> getUserDetails(String userId) throws SQLException;
+
 }

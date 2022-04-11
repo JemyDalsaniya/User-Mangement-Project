@@ -24,8 +24,8 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public List<Address> getAllAddress(Address address, int userId) throws SQLException {
-		List<Address> list = addressdao.getAllAddress(address, userId);
+	public List<Address> getAllAddress(int userId) throws SQLException {
+		List<Address> list = addressdao.getAllAddress(userId);
 		return list;
 	}
 }

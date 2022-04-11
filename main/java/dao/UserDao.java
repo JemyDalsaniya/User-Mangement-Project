@@ -69,4 +69,6 @@ public interface UserDao {
 
 	public boolean checkMail(String email);
 
+	public List<User> getUserDetails(String userId) throws SQLException;
+
 }

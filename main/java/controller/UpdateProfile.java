@@ -69,6 +69,7 @@ public class UpdateProfile extends HttpServlet {
 				System.out.println("inside if condition");
 
 				String base64Image = request.getParameter("oldImage");
+				System.out.println("base64Image");
 				InputStream targetStream = new ByteArrayInputStream(base64Image.getBytes());
 				InputStream is = Base64.getDecoder().wrap(targetStream);
 				user.setUserProfile(is);
@@ -85,7 +86,7 @@ public class UpdateProfile extends HttpServlet {
 			String hobbies = "";
 			String[] hobby = request.getParameterValues("options");
 			for (int i = 0; i < hobby.length; i++) {
-				hobbies += hobby[i] + " ";
+				hobbies += hobby[i] + ",";
 			}
 			user.setUserHobby(hobbies);
 

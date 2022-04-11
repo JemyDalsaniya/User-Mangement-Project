@@ -47,7 +47,7 @@ public class AddressDaoImpl implements AddressDao {
 	}
 
 	@Override
-	public List<Address> getAllAddress(Address address, int userId) throws SQLException {
+	public List<Address> getAllAddress(int userId) throws SQLException {
 		List<Address> list = new ArrayList<Address>();
 
 		PreparedStatement pstmt = conn.prepareStatement("select * from address where user_id = ?");
@@ -56,7 +56,7 @@ public class AddressDaoImpl implements AddressDao {
 		ResultSet rs = pstmt.executeQuery();
 
 		while (rs.next()) {
-			address = new Address();
+			Address address = new Address();
 			address.setAddUserID(rs.getInt("user_id"));
 			address.setAddId(rs.getString("address_id"));
 			address.setAddStreet(rs.getString("street"));
@@ -95,11 +95,6 @@ public class AddressDaoImpl implements AddressDao {
 		pstmt.setString(5, address.getAddState());
 		pstmt.setInt(6, id);
 		pstmt.setString(7, address.getAddId());
-		logger.info("updated values inside address dao impl" + address.getAddStreet());
-		logger.info("updated values inside address dao impl" + address.getAddLandmark());
-		logger.info("updated values inside address dao impl" + address.getAddPincode());
-		logger.info("updated values inside address dao impl" + address.getAddCity());
-		logger.info("updated values inside address dao impl" + address.getAddState());
 
 		pstmt.executeUpdate();
 		logger.info("updated values inside address dao impl" + address);

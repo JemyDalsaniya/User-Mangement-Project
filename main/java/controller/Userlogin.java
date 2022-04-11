@@ -41,14 +41,14 @@ public class Userlogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("inside do post....");
+
 		UserService service = new UserServiceImpl();
 		AddressService addservice = new AddressServiceImpl();
 
 		User user = new User();
-		Address address = new Address();
 		response.setContentType("text/html");
 		HttpSession session = request.getSession();
+
 		EncryptionFile ee = null;
 		try {
 			ee = new EncryptionFile();
@@ -82,7 +82,7 @@ public class Userlogin extends HttpServlet {
 					list2 = service.displaySpecificUser(user);
 					int id = list2.get(0).getUserId();
 					session.setAttribute("CurrentUser", user);
-					listAddress = addservice.getAllAddress(address, id);
+					listAddress = addservice.getAllAddress(id);
 					logger.info("list2" + list2);
 					logger.info("address list" + listAddress);
 

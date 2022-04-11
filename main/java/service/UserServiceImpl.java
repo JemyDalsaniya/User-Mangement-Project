@@ -83,4 +83,10 @@ public class UserServiceImpl implements UserService {
 		validation.validateUserDetails(user, messages);
 	}
 
+	@Override
+	public List<User> getUserDetails(String userId) throws SQLException {
+		List<User> list = object.getUserDetails(userId);
+		return list;
+	}
+
 }

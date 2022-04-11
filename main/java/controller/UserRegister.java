@@ -109,7 +109,7 @@ public class UserRegister extends HttpServlet {
 		String hobbies = "";
 		String[] hobby = request.getParameterValues("options");
 		for (int i = 0; i < hobby.length; i++) {
-			hobbies += hobby[i];
+			hobbies += hobby[i] + ",";
 		}
 		user.setUserHobby(hobbies);
 

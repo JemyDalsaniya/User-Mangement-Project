@@ -326,6 +326,7 @@ $(document).ready(function() {
 		} else {
 			$("#email_error").hide();
 			$("#mail").css("border-bottom", "4px solid #34F458");
+			email_error = false;
 		}
 
 	}
@@ -339,6 +340,7 @@ $(document).ready(function() {
 		} else {
 			$("#password_error").hide();
 			$("#pwd").css("border-bottom", "4px solid #34F458");
+			password_error = false;
 		}
 	}
 
@@ -416,15 +418,19 @@ $(document).ready(function() {
 		console.log("inside check file", $("#img").val());
 		var file = $("#img").val();
 		var fileType = file.split('.').pop().toLowerCase();
+		console.log("length",$("#img")[0].files.length )
 		console.log($("#img")[0].files.length !== 0);
 		if ($("#img")[0].files.length !== 0) {
+			
 			$("#default_img").css("display", "none");
-		}
-		else if ($.inArray(fileType, ['png', 'jpg', 'jpeg']) == -1) {
+			
+		 if ($.inArray(fileType, ['png', 'jpg', 'jpeg']) == -1) {
 			$("#image_error").html("Please select valid file!!").css("color", "red");
 			$("#image_error").show();
 			$("#image_preview").css("display", "none");
 			image_error = true;
+		}
+			
 		}
 
 	}	
@@ -494,103 +500,5 @@ $(document).ready(function() {
 		}
 	});
 
-	//check validation for login page
-	$("#login_form").submit(function() {
-		email_error = false;
-		password_error = false;
-
-		$("#mail").focusout(function() {
-			$("#email_error").hide();
-			$("#mail").css("border-bottom", "1px solid #ced4da");
-		});
-		$("#mail").keyup(function() {
-			check_email();
-		});
-		$("#mail").focus(function() {
-			check_email();
-		});
-
-		$("#pwd").focusout(function() {
-			$("#password_error").hide();
-			$("#pwd").css("border-bottom", "1px solid #ced4da");
-		});
-		$("#pwd").keyup(function() {
-
-			check_password();
-		});
-		$("#pwd").focus(function() {
-			check_password();
-		});
-
-
-
-		check_email();
-		check_password();
-
-
-		if (email_error === false && password_error === false) {
-			alert("Login successfull..");
-			return true;
-		} else {
-			alert("Please Fill the form Correctly");
-			return false;
-		}
-
-	});
-
-	//check validation for forget password page
-	$("#forget_form").submit(function() {
-		alert("function called");
-
-		email_error = false;
-		password_error = false;
-		confirm_password_error = false;
-
-		$("#mail").focusout(function() {
-			$("#email_error").hide();
-			$("#mail").css("border-bottom", "1px solid #ced4da");
-		});
-		$("#mail").keyup(function() {
-			check_email();
-		});
-		$("#mail").focus(function() {
-			check_email();
-		});
-
-		$("#pwd").focusout(function() {
-			$("#password_error").hide();
-			$("#pwd").css("border-bottom", "1px solid #ced4da");
-		});
-		$("#pwd").keyup(function() {
-			check_password();
-		});
-		$("#pwd").focus(function() {
-			check_password();
-		});
-
-		$("#cpwd").focusout(function() {
-			$("#confirm_password_error").hide();
-			$("#cpwd").css("border-bottom", "1px solid #ced4da");
-		});
-		$("#cpwd").keyup(function() {
-			check_confirm_password();
-		});
-		$("#cpwd").focus(function() {
-			check_confirm_password();
-		});
-
-		check_email();
-		check_password();
-		check_confirm_password();
-
-
-		if (email_error === false && password_error === false && confirm_password_error === false) {
-			alert("Password Updated successfully");
-			return true;
-		} else {
-			alert("Please Fill the form Correctly");
-			return false;
-		}
-
-	});
+	
 });

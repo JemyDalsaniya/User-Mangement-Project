@@ -133,7 +133,7 @@ input:checked+.slider:before {
 						<td><img src="data:image/jpg;base64,${user.base64Image}"
 							width="100" height="100"></td>
 						<td>${user.userDOB}</td>
-						<td><a href="UserRegister.jsp?user=adminEdit"><i
+						<td><a href="AdminEdit?userId=${user.userId}"><i
 								class="fa fa-pencil-square-o fa-lg " aria-hidden="true"></i></a>
 							&nbsp;&nbsp;<a id="${user.userId}" class="delete"><i
 								class="fa fa-trash fa-lg " aria-hidden="true"></i></a></td>

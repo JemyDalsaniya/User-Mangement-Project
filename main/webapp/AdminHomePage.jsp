@@ -35,7 +35,7 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="UserRegister.jsp?profile=update">Edit Profile<span
+					<li><a href="UserRegister.jsp">Edit Profile<span
 							class="sr-only">(current)</span></a>
 					<li><a href="ViewUserDetails">View User<span
 							class="sr-only">(current)</span></a>

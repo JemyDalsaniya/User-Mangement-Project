@@ -113,4 +113,23 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/Logout</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>SessionFilter</display-name>
+    <filter-name>SessionFilter</filter-name>
+    <filter-class>controller.SessionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SessionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping> 
+  <servlet>
+    <description></description>
+    <display-name>AdminEdit</display-name>
+    <servlet-name>AdminEdit</servlet-name>
+    <servlet-class>controller.AdminEdit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminEdit</servlet-name>
+    <url-pattern>/AdminEdit</url-pattern>
+  </servlet-mapping>
 </web-app>
