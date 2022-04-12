@@ -43,11 +43,11 @@ public class ForgetPasswordServlet extends HttpServlet {
 		String encrypt_pwd = ee.encrypt(request.getParameter("password"));
 		user.setUserPassword(encrypt_pwd);
 		try {
+			// to update the password
 			service.updatePassword(user);
 			RequestDispatcher req = request.getRequestDispatcher("/Userlogin.jsp");
 			req.forward(request, response);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

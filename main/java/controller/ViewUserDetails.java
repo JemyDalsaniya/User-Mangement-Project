@@ -45,7 +45,6 @@ public class ViewUserDetails extends HttpServlet {
 			RequestDispatcher req = request.getRequestDispatcher("ViewUser.jsp");
 			req.forward(request, response);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -14,14 +14,12 @@ public class UserServiceImpl implements UserService {
 	UserDao object = new UserDaoImpl();
 	Validation validation = new Validation();
 
-	// method of userDaoImpl called..
 	@Override
 	public boolean compareUserLogin(User user) {
 		boolean obj = object.compareUserLogin(user);
 		return obj;
 	}
 
-	// method of userDaoImpl called..
 	@Override
 	public int userRegister(User user) {
 		int id = object.userRegister(user);

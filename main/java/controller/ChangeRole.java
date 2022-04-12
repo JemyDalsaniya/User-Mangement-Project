@@ -28,11 +28,9 @@ public class ChangeRole extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// to change role of user to admin
 		UserService service = new UserServiceImpl();
 		String id = request.getParameter("trid");
-		System.out.println("id inside changeRole" + id);
-
 		try {
 			service.changeRole(id);
 		} catch (SQLException e) {

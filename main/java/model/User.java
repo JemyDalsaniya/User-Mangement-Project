@@ -2,7 +2,6 @@ package model;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.sql.Blob;
 
 public class User {
 
@@ -19,7 +18,6 @@ public class User {
 	private String base64Image;
 	private FileInputStream defaultProfile;
 	private Boolean userStatus;
-	private Blob oldImage;
 
 	public int getUserId() {
 		return userId;
@@ -117,20 +115,12 @@ public class User {
 		this.userStatus = userStatus;
 	}
 
-	public Blob getOldImage() {
-		return oldImage;
-	}
-
-	public void setOldImage(Blob oldImage) {
-		this.oldImage = oldImage;
-	}
-
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userPassword="
 				+ userPassword + ", userContact=" + userContact + ", userGender=" + userGender + ", userHobby="
 				+ userHobby + ", userDOB=" + userDOB + ", userProfile=" + userProfile + ", defaultProfile="
-				+ defaultProfile + ", userStatus=" + userStatus + ", oldImage=" + oldImage + "]";
+				+ defaultProfile + ", userStatus=" + userStatus + "]";
 	}
 
 }

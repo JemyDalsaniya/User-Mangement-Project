@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script>
+<!-- <script>
 function preventBack(){window.history.forward();}
 setTimeout("preventBack()", 0);
 window.onunload=function(){null};
 /* $("#login_form").submit(function(e) {
     e.preventDefault(); // <==stop page refresh==>
 }); */
-</script>
+</script> -->
 <meta charset="ISO-8859-1">
 <title>User login form</title>
 <link rel="stylesheet"
@@ -72,8 +72,6 @@ window.onunload=function(){null};
 							<hr class="my-3 bg-light myHr" />
 							<p class="text-center font-weight-bolder text-light lead">Enter
 								your personal details and start your journey with us!</p>
-							<!-- <button class="btn btn-outline-light btn-lg align-self-center font-weight-bolder mt-4 myLinkBtn"
-                            id="register-link">Sign Up</button> -->
 							<a href="UserRegister.jsp" id="register-link"
 								class="btn btn-outline-light btn-lg align-self-center font-weight-bolder mt-4 myLinkBtn">Sign
 								Up</a>

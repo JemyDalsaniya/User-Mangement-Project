@@ -47,6 +47,7 @@ public class AddressDaoImpl implements AddressDao {
 
 	}
 
+	// To get all address of any user
 	@Override
 	public List<Address> getAllAddress(int userId) throws SQLException {
 		List<Address> list = new ArrayList<Address>();
@@ -72,6 +73,7 @@ public class AddressDaoImpl implements AddressDao {
 
 	}
 
+	// To delete address
 	public void deleteAddress(String addressId[]) {
 		try {
 			for (int counter = 0; counter < addressId.length; counter++) {
@@ -85,11 +87,11 @@ public class AddressDaoImpl implements AddressDao {
 
 	}
 
+	// To update address
 	@Override
 	public void updateAddress(Address address, int id) throws SQLException {
 
-		// addAddress(id, address);
-		// deleteAddress(id);
+		// to add address
 		if (address.getAddId().isEmpty()) {
 			addAddress(id, address);
 		}
@@ -98,6 +100,7 @@ public class AddressDaoImpl implements AddressDao {
 		String[] removeId = remove.split(" ");
 
 		if (!remove.isEmpty()) {
+			// delete address called
 			deleteAddress(removeId);
 		}
 
@@ -112,7 +115,6 @@ public class AddressDaoImpl implements AddressDao {
 		pstmt.setString(7, address.getAddId());
 
 		pstmt.executeUpdate();
-		// logger.info("updated values inside address dao impl" + address);
 
 	}
 

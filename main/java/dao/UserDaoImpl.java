@@ -94,11 +94,10 @@ public class UserDaoImpl implements UserDao {
 	// display user details on admin side
 	@Override
 	public List<User> displayUser(User user) throws SQLException {
-		// TODO Auto-generated method stub
 
 		List<User> list = new ArrayList<User>();
 		PreparedStatement pstmt = conn.prepareStatement("select * from user where isAdmin=0");
-		// logger.info("User Data" + user.toString());
+		logger.info("User Data" + user.toString());
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			user = new User();
@@ -122,7 +121,6 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void deleteUser(String userId) throws SQLException {
-		// TODO Auto-generated method stub
 		PreparedStatement pstmt = conn.prepareStatement("delete from user where user_id=?");
 		pstmt.setString(1, userId);
 		pstmt.execute();
@@ -133,7 +131,6 @@ public class UserDaoImpl implements UserDao {
 	public List<User> displayAdmin(User user) throws SQLException {
 		List<User> list = new ArrayList<User>();
 		PreparedStatement pstmt = conn.prepareStatement("select * from user where isAdmin=1");
-		// logger.info("User Data" + user.toString());
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			user = new User();
@@ -167,7 +164,6 @@ public class UserDaoImpl implements UserDao {
 	// Enhancement 2. change role of user to Admin
 	@Override
 	public void changeRole(String id) throws SQLException {
-		// TODO Auto-generated method stub
 		PreparedStatement pstmt = conn.prepareStatement("UPDATE user SET isAdmin = 1 WHERE user_id = ?");
 		pstmt.setString(1, id);
 		pstmt.executeUpdate();
@@ -218,7 +214,6 @@ public class UserDaoImpl implements UserDao {
 			pstmt.setString(5, user.getUserDOB());
 			pstmt.setBlob(6, user.getUserProfile());
 			pstmt.setString(7, user.getUserEmail());
-			// pstmt.setInt(8, user.getUserId());
 
 			pstmt.executeUpdate();
 			PreparedStatement stmt = conn.prepareStatement("select user_id from user where email=?");
@@ -227,7 +222,6 @@ public class UserDaoImpl implements UserDao {
 			while (rs.next()) {
 				id = rs.getInt("user_id");
 			}
-			System.out.println("id inside update profile:" + id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -236,7 +230,6 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean checkMail(String email) {
-		System.out.println("user dao impl check Mail called");
 
 		PreparedStatement pstmt;
 		try {
@@ -266,6 +259,7 @@ public class UserDaoImpl implements UserDao {
 			user.setUserContact(rs.getString("contact"));
 			user.setUserDOB(rs.getString("dob"));
 			user.setUserGender(rs.getString("gender"));
+			user.setUserPassword(rs.getString("password"));
 			Blob blob = rs.getBlob("profile_img");
 
 			byte[] photo = blob.getBytes(1, (int) blob.length());

@@ -40,7 +40,6 @@ public class Userlogin extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		UserService service = new UserServiceImpl();
 		AddressService addservice = new AddressServiceImpl();
@@ -69,22 +68,23 @@ public class Userlogin extends HttpServlet {
 			if (user.getUserStatus()) {
 				try {
 					list1 = service.displayAdmin(user);
+					int id = list1.get(0).getUserId();
+					listAddress = addservice.getAllAddress(id);
 					session.setAttribute("adminList", list1);
-					session.setAttribute("admin", user);
+					session.setAttribute("CurrentUser", user);
+					session.setAttribute("AddressList", listAddress);
+
 					RequestDispatcher req = request.getRequestDispatcher("AdminHomePage.jsp");
 					req.forward(request, response);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			} else {
-				System.out.println("inside else part");
 				try {
 					list2 = service.displaySpecificUser(user);
 					int id = list2.get(0).getUserId();
 					session.setAttribute("CurrentUser", user);
 					listAddress = addservice.getAllAddress(id);
-//					logger.info("list2" + list2);
-//					logger.info("address list" + listAddress);
 
 					session.setAttribute("specificUserData", list2);
 					session.setAttribute("AddressList", listAddress);

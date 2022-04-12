@@ -28,8 +28,6 @@ public class AdminEdit extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		doPost(request, response);
 
 	}
@@ -43,15 +41,13 @@ public class AdminEdit extends HttpServlet {
 		AddressService addService = new AddressServiceImpl();
 
 		try {
+			// to get details of paricular user
 			List<User> userData = service.getUserDetails(userId);
-			System.out.println("user Data:" + userData);
 			User user = userData.get(0);
-			System.out.println("value in user object:" + user);
 			session.setAttribute("CurrentUser", user);
 			List<Address> listAddress = addService.getAllAddress(Integer.parseInt(userId));
-			System.out.println("Addresslist:" + listAddress);
 			session.setAttribute("AddressList", listAddress);
-			RequestDispatcher req = request.getRequestDispatcher("UserRegister.jsp?user=adminEdit&profile=user");
+			RequestDispatcher req = request.getRequestDispatcher("UserRegister.jsp");
 			req.forward(request, response);
 
 		} catch (SQLException e) {

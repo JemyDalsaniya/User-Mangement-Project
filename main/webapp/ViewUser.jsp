@@ -133,7 +133,7 @@ input:checked+.slider:before {
 						<td><img src="data:image/jpg;base64,${user.base64Image}"
 							width="100" height="100"></td>
 						<td>${user.userDOB}</td>
-						<td><a href="AdminEdit?userId=${user.userId}"><i
+						<td><a href="AdminEdit?user=adminEdit&userId=${user.userId}"><i
 								class="fa fa-pencil-square-o fa-lg " aria-hidden="true"></i></a>
 							&nbsp;&nbsp;<a id="${user.userId}" class="delete"><i
 								class="fa fa-trash fa-lg " aria-hidden="true"></i></a></td>
@@ -184,7 +184,7 @@ input:checked+.slider:before {
 						userId : userId,
 					}),
 					success : function(data) {
-						alert("sucess");
+						alert("deleted successfully..");
 						$(rowToDelete).closest('tr').fadeOut(100, function() {
 							$(this).remove();
 						});
@@ -203,7 +203,7 @@ input:checked+.slider:before {
 						trid : trid,
 					}),
 					success : function(data) {
-						alert("sucess");
+						alert("Role Changed..");
 						$(rowToDelete).closest('tr').fadeOut(100, function() {
 							$(this).remove();
 						});

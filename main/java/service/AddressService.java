@@ -15,12 +15,18 @@ public interface AddressService {
 	 */
 	public void addAddress(int userId, Address address);
 
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<Address> getAllAddress(int userId) throws SQLException;
 
 	/**
 	 * 
 	 * @param address
-	 * @param email
+	 * @param id
 	 * @throws SQLException
 	 */
 	public void updateAddress(Address address, int id) throws SQLException;

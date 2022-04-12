@@ -53,6 +53,7 @@ public interface UserDao {
 
 	/**
 	 * 
+	 * @param id
 	 * @throws SQLException
 	 */
 	public void changeRole(String id) throws SQLException;
@@ -65,10 +66,26 @@ public interface UserDao {
 	 */
 	public List<User> displaySpecificUser(User user) throws SQLException;
 
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public int updateProfile(User user);
 
+	/**
+	 * 
+	 * @param email
+	 * @return
+	 */
 	public boolean checkMail(String email);
 
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<User> getUserDetails(String userId) throws SQLException;
 
 }

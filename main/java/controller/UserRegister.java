@@ -58,7 +58,6 @@ public class UserRegister extends HttpServlet {
 		String email = request.getParameter("email");
 
 		boolean flag = service.checkMail(email);
-		System.out.println("flag value:" + flag);
 		if (flag) {
 			out.write("true");
 		} else {
@@ -71,9 +70,10 @@ public class UserRegister extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession sessionInvalidate = request.getSession();
+		sessionInvalidate.invalidate();
 
 		int id = 0;
-		System.out.println("user register called");
 
 		UserService service = new UserServiceImpl();
 		AddressService addservice = new AddressServiceImpl();
@@ -89,11 +89,9 @@ public class UserRegister extends HttpServlet {
 			e.printStackTrace();
 		}
 		Part file = request.getPart("img");
-		System.out.println("val file:" + file.getSize());
 		if (file.getSize() == 0) {
 
 			InputStream fis = new FileInputStream("C:/Users/JEMMY/Desktop/default_profile.jpg");
-			System.out.println("value fis:" + fis);
 			user.setUserProfile(fis);
 		} else {
 			InputStream imgContent = file.getInputStream();
@@ -115,7 +113,6 @@ public class UserRegister extends HttpServlet {
 
 		String encrypt_pwd = ee.encrypt(request.getParameter("password"));
 		user.setUserPassword(encrypt_pwd);
-		// if (messages.isEmpty()) {
 
 		id = service.userRegister(user);
 		String[] street = request.getParameterValues("address[]");
@@ -127,7 +124,6 @@ public class UserRegister extends HttpServlet {
 		int count = 0;
 		while (count < street.length) {
 			Address addobj = new Address();
-			// addobj.setAddUserID();
 			addobj.setAddStreet(street[count]);
 			addobj.setAddLandmark(landmark[count]);
 			addobj.setAddCity(city[count]);
@@ -139,7 +135,7 @@ public class UserRegister extends HttpServlet {
 		}
 
 		HttpSession session = request.getSession();
-		String uName = (String) session.getAttribute("Name");
+		String uName = (String) session.getAttribute("userName");
 		if (uName != null) {
 			response.sendRedirect("AdminHomePage.jsp");
 		} else {

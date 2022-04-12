@@ -48,7 +48,6 @@ public class UpdateProfile extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("inside update profile");
 		try {
 			HttpSession session = request.getSession();
 			// to get address list
@@ -78,7 +77,7 @@ public class UpdateProfile extends HttpServlet {
 				InputStream imgContent = file.getInputStream();
 				user.setUserProfile(imgContent);
 			}
-
+			// to set the updated values
 			user.setUserName(request.getParameter("name"));
 			user.setUserEmail(request.getParameter("email"));
 			user.setUserContact(request.getParameter("contact"));
@@ -110,6 +109,7 @@ public class UpdateProfile extends HttpServlet {
 					remove += addrId[i] + " ";
 				}
 			}
+			// to get the updated values
 			String[] street = request.getParameterValues("address[]");
 			String[] landmark = request.getParameterValues("landmark[]");
 			String[] pincode = request.getParameterValues("pincode[]");
@@ -118,8 +118,8 @@ public class UpdateProfile extends HttpServlet {
 
 			int count = 0;
 			while (count < street.length) {
-				// addobj.setAddUserID();
 
+				// to set the updated values
 				address.setAddId(addressId[count]);
 				address.setAddStreet(street[count]);
 				address.setAddLandmark(landmark[count]);
@@ -128,13 +128,14 @@ public class UpdateProfile extends HttpServlet {
 				address.setAddPincode(pincode[count]);
 				address.setRemoveAddressId(remove);
 
+				// update address function called
 				addservice.updateAddress(address, id);
 				logger.info("address values inside update servlet" + address);
 				count++;
 			}
 
 			logger.info("values inside update servlet" + user);
-			String uName = (String) session.getAttribute("Name");
+			String uName = (String) session.getAttribute("userName");
 			if (uName.equals("adminEdit")) {
 				response.sendRedirect("AdminHomePage.jsp");
 			} else if (uName.equals("userEdit")) {
@@ -144,9 +145,6 @@ public class UpdateProfile extends HttpServlet {
 			} else {
 				response.sendRedirect("Userlogin.jsp");
 			}
-
-//		RequestDispatcher req = request.getRequestDispatcher("/Userlogin.jsp");
-//		req.forward(request, response);
 
 		} catch (SQLException e) {
 			e.printStackTrace();

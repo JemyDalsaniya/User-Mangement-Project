@@ -19,7 +19,6 @@
 
 <body class="bg_custom_color">
 
-
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">

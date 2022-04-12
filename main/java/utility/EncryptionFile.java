@@ -29,6 +29,7 @@ public class EncryptionFile {
 		key = skf.generateSecret(ks);
 	}
 
+	// to encrypt the string
 	public String encrypt(String unencryptedString) {
 		String encryptedString = null;
 		try {
@@ -42,6 +43,7 @@ public class EncryptionFile {
 		return encryptedString;
 	}
 
+	// to decrypt the string
 	public String decrypt(String encryptedString) {
 		String decryptedText = null;
 		try {
@@ -55,17 +57,17 @@ public class EncryptionFile {
 		return decryptedText;
 	}
 
-	public static void main(String args[]) throws Exception {
-		EncryptionFile td = new EncryptionFile();
-
-		String target = "shivu";
-		String encrypted = td.encrypt(target);
-		String decrypted = td.decrypt(encrypted);
-
-		System.out.println("String To Encrypt: " + target);
-		System.out.println("Encrypted String:" + encrypted);
-		System.out.println("Decrypted String:" + decrypted);
-
-	}
+//	public static void main(String args[]) throws Exception {
+//		EncryptionFile td = new EncryptionFile();
+//
+//		String target = "shivu";
+//		String encrypted = td.encrypt(target);
+//		String decrypted = td.decrypt(encrypted);
+//
+//		System.out.println("String To Encrypt: " + target);
+//		System.out.println("Encrypted String:" + encrypted);
+//		System.out.println("Decrypted String:" + decrypted);
+//
+//	}
 
 }

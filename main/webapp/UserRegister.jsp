@@ -12,12 +12,11 @@
 
 
 <%
-String user = request.getParameter("user");
-session.setAttribute("Name", user);
+User user = (User) session.getAttribute("CurrentUser");
+String userName = request.getParameter("user");
+session.setAttribute("userName", userName);
 %>
-<%
-User cuser = (User) session.getAttribute("CurrentUser");
-%>
+
 <!DOCTYPE html>
 <html>
 
@@ -59,15 +58,17 @@ User cuser = (User) session.getAttribute("CurrentUser");
 </head>
 
 <body class="bg-info bg_custom_color">
-	<c:set var="cuser" scope="session" value="${sessionScope.CurrentUser}" />
+	<c:set var="user" scope="session" value="${sessionScope.CurrentUser}" />
 	<c:set var="profile" scope="request"
 		value='<%=request.getParameter("user")%>' />
+
 	<div class="container">
 
 		<form action="UserRegister" method="Post" id="registration_form"
 			enctype="multipart/form-data">
 			<h3 style="text-align: center" class="margin_top_file header_tag">Registration
 				Form</h3>
+				
 			<div class="row form-row">
 				<div class="col-md-6">
 
@@ -207,8 +208,9 @@ User cuser = (User) session.getAttribute("CurrentUser");
 					<c:choose>
 						<c:when
 							test="${(profile == 'admin') || (profile == 'userEdit') || (profile == 'adminEdit')}">
-							<c:forEach items="${AddressList}" var="address" varStatus="count">
-								<div id="main-container">
+							<div id="main-container">
+								<c:forEach items="${AddressList}" var="address"
+									varStatus="count">
 									<div class="panel card container-item">
 										<div class="panel-body">
 											<div class="panel-body">
@@ -303,9 +305,9 @@ User cuser = (User) session.getAttribute("CurrentUser");
 											</div>
 										</div>
 									</div>
-								</div>
+								</c:forEach>
+							</div>
 
-							</c:forEach>
 							<div>
 								<a class="btn btn-success btn-sm" id="add-more"
 									href="javascript:;" role="button"><i class="fa fa-plus"></i>
@@ -323,8 +325,7 @@ User cuser = (User) session.getAttribute("CurrentUser");
 													<div class="form-group">
 														<label class="control-label" for="address_line_one_0">Street</label>
 														<input type="text" id="street" class="form-control"
-															name="address[]" maxlength="255"
-															value="${address.addStreet}"> <span
+															name="address[]" maxlength="255"> <span
 															id="street_error">${messages.street}</span>
 													</div>
 												</div>
@@ -332,8 +333,7 @@ User cuser = (User) session.getAttribute("CurrentUser");
 													<div class="form-group">
 														<label class="control-label" for="address_line_two_0">Landmark</label>
 														<input type="text" id="landmark" class="form-control"
-															name="landmark[]" maxlength="255"
-															value="${address.addLandmark}"> <span
+															name="landmark[]" maxlength="255"> <span
 															id="landmark_error">${messages.landmark}</span>
 													</div>
 												</div>
@@ -341,59 +341,43 @@ User cuser = (User) session.getAttribute("CurrentUser");
 													<div class="form-group">
 														<label class="control-label" for="address_line_two_0">Pincode</label>
 														<input type="text" id="pincode" class="form-control"
-															name="pincode[]" maxlength="255"
-															value="${address.addPincode}"> <span
+															name="pincode[]" maxlength="255"> <span
 															id="pincode_error">${messages.pincode}</span>
 													</div>
 												</div>
 											</div>
 											<div class="row">
-												<%-- 													<c:forEach var="item" items="${address.addCity}">
- --%>
+
 												<div class="col-sm-6">
 													<div class="form-group">
 														<label class="control-label" for="city_0">City</label> <select
 															class="form-control" name="city[]" id="city"
 															style="height: auto;">
 															<option value="0">Select City</option>
-															<option value="Ahemdabad"
-																${item  eq 'Ahemdabad' ? 'selected' : ''}>Ahemdabad</option>
-															<option value="Junagadh"
-																${item  eq 'Junagadh' ? 'selected' : ''}>Junagadh</option>
-															<option value="Mumbai"
-																${item  eq 'Mumbai' ? 'selected' : ''}>Mumbai</option>
-															<option value="Surat"
-																${item  eq 'Surat' ? 'selected' : ''}>Surat</option>
-															<option value="Vadodara"
-																${address.addCity  eq 'Vadodara' ? 'selected' : ''}>Vadodara</option>
+															<option value="Ahemdabad">Ahemdabad</option>
+															<option value="Junagadh">Junagadh</option>
+															<option value="Mumbai">Mumbai</option>
+															<option value="Surat">Surat</option>
+															<option value="Vadodara">Vadodara</option>
 														</select> <span id="city_error">${messages.city}</span>
 													</div>
 												</div>
-												<%-- 													</c:forEach>
- --%>
-												<%-- 													<c:forEach var="item" items="${address.addState}">
- --%>
+
+
 												<div class="col-sm-6">
 													<div class="form-group">
 														<label class="control-label" for="state_0">State</label> <select
 															class="form-control" name="state[]" id="state"
 															style="height: auto;">
 															<option value="0">Select State</option>
-															<option value="Gujarat"
-																${item  eq 'Gujarat' ? 'selected' : ''}>Gujarat</option>
-															<option value="Maharashtra"
-																${item eq 'Maharashtra' ? 'selected' : ''}>Maharashtra</option>
-															<option value="Goa" ${item  eq 'Goa' ? 'selected' : ''}>Goa</option>
-															<option value="Punjab"
-																${item  eq 'Punjab' ? 'selected' : ''}>Punjab</option>
-															<option value="Assam"
-																${item  eq 'Assam' ? 'selected' : ''}>Assam</option>
+															<option value="Gujarat">Gujarat</option>
+															<option value="Maharashtra">Maharashtra</option>
+															<option value="Goa">Goa</option>
+															<option value="Punjab">Punjab</option>
+															<option value="Assam">Assam</option>
 														</select> <span id="state_error">${messages.state}</span>
 													</div>
 												</div>
-												<%-- 													</c:forEach>
- --%>
-
 											</div>
 
 
@@ -419,7 +403,26 @@ User cuser = (User) session.getAttribute("CurrentUser");
 				</div>
 			</div>
 
-			<div class="row btn-margin form-row">
+
+<c:choose>
+<c:when test="${profile == 'userEdit' || profile == 'adminEdit' }">
+	<div class="row btn-margin form-row">
+
+				<div class="col-sm-1  submit_btn">
+
+					<input type="submit"
+						class="btn btn-default btn-primary register_btn" value="Submit">
+				</div>
+				<div class="col-sm-2">
+
+					<a href=""
+						class="btn btn-default btn-primary cancel">Cancel</a>
+				</div>
+			</div>
+	
+</c:when>
+<c:otherwise>
+<div class="row btn-margin form-row">
 
 				<div class="col-sm-1  submit_btn">
 
@@ -432,7 +435,10 @@ User cuser = (User) session.getAttribute("CurrentUser");
 						class="btn btn-default btn-primary btn_hide">Back to login</a>
 				</div>
 			</div>
-		</form>
+
+</c:otherwise>
+</c:choose>
+					</form>
 	</div>
 
 	<!-- address code ends -->
@@ -520,6 +526,7 @@ User cuser = (User) session.getAttribute("CurrentUser");
 				"max-width" : "170px",
 				"max-height" : "170px"
 			});
+			$(".cancel").attr("href","AdminHomePage.jsp")
 		} else if (uname === 'userEdit') {
 			$(".btn_hide").hide();
 			$("#default_img").hide();
@@ -534,15 +541,17 @@ User cuser = (User) session.getAttribute("CurrentUser");
 				"max-width" : "170px",
 				"max-width" : "170px"
 			});
+			$(".cancel").attr("href","UserHomePage.jsp")
+
 		} else if (uname === 'admin') {
 			$(".btn_hide").hide();
 			$("#default_img").hide();
 			$(".header_tag").text("Update Profile");
 			$(".register_btn").prop("value", "Update");
 			$("#registration_form").attr("action", "UpdateProfile");
-			/* $("#mail").attr("readonly", "readonly");
+			$("#mail").attr("readonly", "readonly");
 			$("#pwd").attr("readonly", "true");
-			$("#cpwd").attr("readonly", "true"); */
+			$("#cpwd").attr("readonly", "true"); 
 			$("#image_preview").css({
 				"display" : "block",
 				"max-width" : "170px",

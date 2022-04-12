@@ -19,16 +19,18 @@ public class Logout extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		doPost(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
+		// to invalidate the session
 		HttpSession session = request.getSession(false);
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Cache-Control", "no-store");
+		response.setDateHeader("Expires", 0);
+		response.setHeader("Pragma", "no-cache");
 		session.invalidate();
 		response.setContentType("text/html;charset=UTF-8");
 		RequestDispatcher req = request.getRequestDispatcher("/Userlogin.jsp");
