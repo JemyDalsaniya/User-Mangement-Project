@@ -2,17 +2,14 @@ package service;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import dao.UserDao;
 import dao.UserDaoImpl;
 import model.User;
-import utility.Validation;
 
 public class UserServiceImpl implements UserService {
 
 	UserDao object = new UserDaoImpl();
-	Validation validation = new Validation();
 
 	@Override
 	public boolean compareUserLogin(User user) {
@@ -59,9 +56,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> displaySpecificUser(User user) throws SQLException {
-		List<User> list = object.displaySpecificUser(user);
-		return list;
+	public User displaySpecificUser(User user) throws SQLException {
+		return object.displaySpecificUser(user);
 	}
 
 	@Override
@@ -74,11 +70,6 @@ public class UserServiceImpl implements UserService {
 	public boolean checkMail(String email) {
 		boolean obj = object.checkMail(email);
 		return obj;
-	}
-
-	@Override
-	public void validateUserDetails(User user, Map<String, String> messages) {
-		validation.validateUserDetails(user, messages);
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MyConnection {
+public final class MyConnection {
 	private static MyConnection obj = new MyConnection();
 
 	// private constructor
@@ -24,8 +24,6 @@ public class MyConnection {
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/usermanagement", "root", "root");
 		if (conn.isClosed()) {
 			System.out.println("connection is closed!");
-		} else {
-			// System.out.println("Connected to database..");
 		}
 		return conn;
 	}

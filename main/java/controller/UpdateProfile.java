@@ -52,9 +52,12 @@ public class UpdateProfile extends HttpServlet {
 			HttpSession session = request.getSession();
 			// to get address list
 			List<Address> addList = (List<Address>) session.getAttribute("AddressList");
+			// List<User> specificUser = (List<User>)
+			// session.getAttribute("specificUserData");
 			UserService service = new UserServiceImpl();
 			AddressService addservice = new AddressServiceImpl();
 			User user = new User();
+			// User user = (User) session.getAttribute("CurrentUser");
 			Address address = new Address();
 			Map<String, String> messages = new HashMap<String, String>();
 			request.setAttribute("messages", messages);
@@ -134,16 +137,28 @@ public class UpdateProfile extends HttpServlet {
 				count++;
 			}
 
-			logger.info("values inside update servlet" + user);
 			String uName = (String) session.getAttribute("userName");
 			if (uName.equals("adminEdit")) {
 				response.sendRedirect("AdminHomePage.jsp");
+//				RequestDispatcher req = request.getRequestDispatcher("AdminHomePage.jsp");
+//				req.include(request, response);
 			} else if (uName.equals("userEdit")) {
+				User list2 = service.displaySpecificUser(user);
+				session.setAttribute("specificUserData", list2);
+				List<Address> listAddress = addservice.getAllAddress(id);
+				session.setAttribute("AddressList", listAddress);
+				session.setAttribute("CurrentUser", user);
 				response.sendRedirect("UserHomePage.jsp");
+//				RequestDispatcher req = request.getRequestDispatcher("UserHomePage.jsp");
+//				req.include(request, response);
+
 			} else if (uName.equals("admin")) {
+				List<User> list1 = service.displayAdmin(user);
+				List<Address> listAddress = addservice.getAllAddress(id);
+				session.setAttribute("AddressList", listAddress);
+				// session.setAttribute("CurrentUser", user);
+				session.setAttribute("adminList", list1);
 				response.sendRedirect("AdminHomePage.jsp");
-			} else {
-				response.sendRedirect("Userlogin.jsp");
 			}
 
 		} catch (SQLException e) {

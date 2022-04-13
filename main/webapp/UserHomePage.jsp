@@ -39,7 +39,8 @@ td, h2 {
 </head>
 
 <body class="bg_custom_color">
-	<nav class="navbar navbar-inverse">
+ 	<c:set var="user" scope="session" value="${sessionScope.CurrentUser}" />
+ 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -69,7 +70,8 @@ td, h2 {
 	<div class="container">
 		<h2>User Details</h2>
 		<table class="table table-bordered table-dark table_border">
-			<c:forEach var="user" items="${specificUserData}">
+<%-- 			<c:forEach var="user" items="${specificUserData}">
+ 			<c:forEach var="user" items="${specificUserData}">--%>
 				<tr>
 					<td>Name</td>
 					<td>${user.userName}</td>
@@ -115,8 +117,8 @@ td, h2 {
 					</tr>
 				</c:forEach>
 
-			</c:forEach>
-		</table>
+<%-- 			</c:forEach>
+ --%>		</table>
 	</div>
 
 	<jsp:include page="footer.jsp"></jsp:include>

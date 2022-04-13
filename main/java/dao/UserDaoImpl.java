@@ -171,9 +171,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> displaySpecificUser(User user) throws SQLException {
+	public User displaySpecificUser(User user) throws SQLException {
 
-		List<User> list = new ArrayList<User>();
+		// List<User> list = new ArrayList<User>();
 
 		PreparedStatement pstmt = conn.prepareStatement("select * from user where email= ? and password = ?");
 		pstmt.setString(1, user.getUserEmail());
@@ -194,10 +194,11 @@ public class UserDaoImpl implements UserDao {
 			String base64Image = Base64.getEncoder().encodeToString(photo);
 			user.setBase64Image(base64Image);
 			user.setUserHobby(rs.getString("hobby"));
-			list.add(user);
+			// list.add(user);
+			// System.out.println("updated user list" + list);
 		}
 
-		return list;
+		return user;
 	}
 
 	@Override
@@ -236,9 +237,9 @@ public class UserDaoImpl implements UserDao {
 			pstmt = conn.prepareStatement("select email from user where email=?");
 			pstmt.setString(1, email);
 			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
+			while (rs.next())
 				return true;
-			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

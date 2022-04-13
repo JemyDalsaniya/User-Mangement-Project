@@ -557,6 +557,8 @@ session.setAttribute("userName", userName);
 				"max-width" : "170px",
 				"max-width" : "170px"
 			});
+			$(".cancel").attr("href","AdminHomePage.jsp")
+
 		}
 	</script>
 	<jsp:include page="footer.jsp" />

@@ -21,6 +21,7 @@ import service.UserService;
 import service.UserServiceImpl;
 import utility.EncryptionFile;
 
+//@WebServlet("/Userlogin")
 public class Userlogin extends HttpServlet {
 
 	private static Logger logger = Logger.getLogger(UserDaoImpl.class.getName());
@@ -52,6 +53,7 @@ public class Userlogin extends HttpServlet {
 		try {
 			ee = new EncryptionFile();
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		String decrypt_pwd = ee.encrypt(request.getParameter("password"));
 
@@ -61,7 +63,7 @@ public class Userlogin extends HttpServlet {
 		boolean isValid = service.compareUserLogin(user);
 
 		List<User> list1;
-		List<User> list2;
+		// List<User> list2;
 		List<Address> listAddress;
 
 		if (isValid) {
@@ -81,14 +83,16 @@ public class Userlogin extends HttpServlet {
 				}
 			} else {
 				try {
-					list2 = service.displaySpecificUser(user);
-					int id = list2.get(0).getUserId();
-					session.setAttribute("CurrentUser", user);
+					User list2 = service.displaySpecificUser(user);
+					System.out.println("user value in userlogin......" + list2);
+					// int id = list2.get(0).getUserId();
+					int id = list2.getUserId();
 					listAddress = addservice.getAllAddress(id);
-
+					System.out.println("listAddress" + listAddress);
 					session.setAttribute("specificUserData", list2);
 					session.setAttribute("AddressList", listAddress);
-					session.setAttribute("user", user);
+					session.setAttribute("CurrentUser", user);
+					// session.setAttribute("user", user);
 					RequestDispatcher req = request.getRequestDispatcher("UserHomePage.jsp");
 					req.forward(request, response);
 				} catch (SQLException e) {
@@ -96,6 +100,9 @@ public class Userlogin extends HttpServlet {
 					logger.info(e.toString());
 				}
 			}
+		} else {
+			RequestDispatcher req = request.getRequestDispatcher("Userlogin.jsp");
+			req.forward(request, response);
 		}
 	}
 }

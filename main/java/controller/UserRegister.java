@@ -27,6 +27,7 @@ import service.UserServiceImpl;
 import utility.EncryptionFile;
 import utility.MyConnection;
 
+//@WebServlet("/UserRegister")
 @MultipartConfig
 public class UserRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -80,7 +81,6 @@ public class UserRegister extends HttpServlet {
 		User user = new User();
 		Map<String, String> messages = new HashMap<String, String>();
 		request.setAttribute("messages", messages);
-		service.validateUserDetails(user, messages);
 
 		EncryptionFile ee = null;
 		try {
@@ -111,8 +111,7 @@ public class UserRegister extends HttpServlet {
 		}
 		user.setUserHobby(hobbies);
 
-		String encrypt_pwd = ee.encrypt(request.getParameter("password"));
-		user.setUserPassword(encrypt_pwd);
+		user.setUserPassword(ee.encrypt(request.getParameter("password")));
 
 		id = service.userRegister(user);
 		String[] street = request.getParameterValues("address[]");

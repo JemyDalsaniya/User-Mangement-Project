@@ -13,7 +13,7 @@ public interface AddressService {
 	 * @param address
 	 * @return
 	 */
-	public void addAddress(int userId, Address address);
+	void addAddress(int userId, Address address);
 
 	/**
 	 * 
@@ -21,7 +21,7 @@ public interface AddressService {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<Address> getAllAddress(int userId) throws SQLException;
+	List<Address> getAllAddress(int userId) throws SQLException;
 
 	/**
 	 * 
@@ -29,6 +29,6 @@ public interface AddressService {
 	 * @param id
 	 * @throws SQLException
 	 */
-	public void updateAddress(Address address, int id) throws SQLException;
+	void updateAddress(Address address, int id) throws SQLException;
 
 }

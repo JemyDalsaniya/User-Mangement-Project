@@ -7,8 +7,11 @@ public class User {
 
 	private int userId;
 
+	// Name of user
 	private String userName;
+	// Email of user
 	private String userEmail;
+	// Password of user
 	private String userPassword;
 	private String userContact;
 	private String userGender;
