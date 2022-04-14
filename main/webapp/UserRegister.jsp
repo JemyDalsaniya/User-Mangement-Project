@@ -8,9 +8,6 @@
 <%@ page import="model.User"%>
 <%@ page import="model.Address"%>
 
-
-
-
 <%
 User user = (User) session.getAttribute("CurrentUser");
 String userName = request.getParameter("user");
@@ -68,7 +65,7 @@ session.setAttribute("userName", userName);
 			enctype="multipart/form-data">
 			<h3 style="text-align: center" class="margin_top_file header_tag">Registration
 				Form</h3>
-				
+
 			<div class="row form-row">
 				<div class="col-md-6">
 
@@ -93,7 +90,7 @@ session.setAttribute("userName", userName);
 						<label for="fname">Full Name:</label> <input type="text"
 							class="form-control text-width" id="name" name="name"
 							placeholder="Enter your name" value="${user.userName}" /><span
-							id="name_error">${messages.name}</span>
+							id="name_error"></span>
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -102,7 +99,7 @@ session.setAttribute("userName", userName);
 					<div class="form-group">
 						<label>Contact No:</label> <input type="text" class="form-control"
 							id="contact" placeholder="Phone number" name="contact"
-							value="${user.userContact}" /> <span id="contact_error">${messages.contact}</span>
+							value="${user.userContact}" /> <span id="contact_error"></span>
 					</div>
 
 				</div>
@@ -124,7 +121,7 @@ session.setAttribute("userName", userName);
 						<label for="pwd">Password:</label> <input type="password"
 							class="form-control text-width" id="pwd" placeholder="Password"
 							name="password" value="${user.userPassword}" /> <span
-							id="password_error">${messages.password}</span>
+							id="password_error"></span>
 					</div>
 				</div>
 			</div>
@@ -141,7 +138,7 @@ session.setAttribute("userName", userName);
 						</label><br /> <label class="radio-inline radio-class"> <input
 							type="radio" name="gender" id="id2" value="male"
 							${user.userGender  eq 'male' ? 'checked' : ''} /> Male
-						</label><br /> <span id="radio_error">${messages.gender}</span>
+						</label><br /> <span id="radio_error"></span>
 					</div>
 				</div>
 
@@ -185,7 +182,7 @@ session.setAttribute("userName", userName);
 							name="options" value="Music"
 							${fn:contains(user.userHobby, 'Music')  ? 'checked' : ''}>
 						<label class="form-check-label">Music</label> <br /> <span
-							id="check_error">${messages.hobby}</span>
+							id="check_error"></span>
 					</div>
 
 				</div>
@@ -194,7 +191,7 @@ session.setAttribute("userName", userName);
 					<div class="form-group">
 						<label for="fname">Date Of Birth:</label> <input type="date"
 							class="form-control text-width" id="dob" name="dob"
-							value="${user.userDOB}" /> <span id="dob_error">${messages.dob}</span>
+							value="${user.userDOB}" /> <span id="dob_error"></span>
 					</div>
 				</div>
 
@@ -223,7 +220,7 @@ session.setAttribute("userName", userName);
 															<input type="text" id="street" class="form-control"
 																name="address[]" maxlength="255"
 																value="${address.addStreet}"> <span
-																id="street_error">${messages.street}</span>
+																id="street_error"></span>
 														</div>
 													</div>
 													<div class="col-sm-4">
@@ -232,7 +229,7 @@ session.setAttribute("userName", userName);
 															<input type="text" id="landmark" class="form-control"
 																name="landmark[]" maxlength="255"
 																value="${address.addLandmark}"> <span
-																id="landmark_error">${messages.landmark}</span>
+																id="landmark_error"></span>
 														</div>
 													</div>
 													<div class="col-sm-4">
@@ -241,7 +238,7 @@ session.setAttribute("userName", userName);
 															<input type="text" id="pincode" class="form-control"
 																name="pincode[]" maxlength="255"
 																value="${address.addPincode}"> <span
-																id="pincode_error">${messages.pincode}</span>
+																id="pincode_error"></span>
 														</div>
 													</div>
 												</div>
@@ -263,7 +260,7 @@ session.setAttribute("userName", userName);
 																		${item  eq 'Surat' ? 'selected' : ''}>Surat</option>
 																	<option value="Vadodara"
 																		${address.addCity  eq 'Vadodara' ? 'selected' : ''}>Vadodara</option>
-																</select> <span id="city_error">${messages.city}</span>
+																</select> <span id="city_error"></span>
 															</div>
 														</div>
 													</c:forEach>
@@ -285,7 +282,7 @@ session.setAttribute("userName", userName);
 																		${item  eq 'Punjab' ? 'selected' : ''}>Punjab</option>
 																	<option value="Assam"
 																		${item  eq 'Assam' ? 'selected' : ''}>Assam</option>
-																</select> <span id="state_error">${messages.state}</span>
+																</select> <span id="state_error"></span>
 															</div>
 														</div>
 													</c:forEach>
@@ -326,7 +323,7 @@ session.setAttribute("userName", userName);
 														<label class="control-label" for="address_line_one_0">Street</label>
 														<input type="text" id="street" class="form-control"
 															name="address[]" maxlength="255"> <span
-															id="street_error">${messages.street}</span>
+															id="street_error"></span>
 													</div>
 												</div>
 												<div class="col-sm-4">
@@ -334,7 +331,7 @@ session.setAttribute("userName", userName);
 														<label class="control-label" for="address_line_two_0">Landmark</label>
 														<input type="text" id="landmark" class="form-control"
 															name="landmark[]" maxlength="255"> <span
-															id="landmark_error">${messages.landmark}</span>
+															id="landmark_error"></span>
 													</div>
 												</div>
 												<div class="col-sm-4">
@@ -342,7 +339,7 @@ session.setAttribute("userName", userName);
 														<label class="control-label" for="address_line_two_0">Pincode</label>
 														<input type="text" id="pincode" class="form-control"
 															name="pincode[]" maxlength="255"> <span
-															id="pincode_error">${messages.pincode}</span>
+															id="pincode_error"></span>
 													</div>
 												</div>
 											</div>
@@ -359,7 +356,7 @@ session.setAttribute("userName", userName);
 															<option value="Mumbai">Mumbai</option>
 															<option value="Surat">Surat</option>
 															<option value="Vadodara">Vadodara</option>
-														</select> <span id="city_error">${messages.city}</span>
+														</select> <span id="city_error"></span>
 													</div>
 												</div>
 
@@ -375,7 +372,7 @@ session.setAttribute("userName", userName);
 															<option value="Goa">Goa</option>
 															<option value="Punjab">Punjab</option>
 															<option value="Assam">Assam</option>
-														</select> <span id="state_error">${messages.state}</span>
+														</select> <span id="state_error"></span>
 													</div>
 												</div>
 											</div>
@@ -404,41 +401,41 @@ session.setAttribute("userName", userName);
 			</div>
 
 
-<c:choose>
-<c:when test="${profile == 'userEdit' || profile == 'adminEdit' }">
-	<div class="row btn-margin form-row">
+			<c:choose>
+				<c:when
+					test="${profile == 'userEdit' || profile == 'adminEdit' || profile == 'admin' || profile == 'ADD'}">
+					<div class="row btn-margin form-row">
 
-				<div class="col-sm-1  submit_btn">
+						<div class="col-sm-1  submit_btn">
 
-					<input type="submit"
-						class="btn btn-default btn-primary register_btn" value="Submit">
-				</div>
-				<div class="col-sm-2">
+							<input type="submit"
+								class="btn btn-default btn-primary register_btn" value="Submit">
+						</div>
+						<div class="col-sm-2">
 
-					<a href=""
-						class="btn btn-default btn-primary cancel">Cancel</a>
-				</div>
-			</div>
-	
-</c:when>
-<c:otherwise>
-<div class="row btn-margin form-row">
+							<a href="" class="btn btn-default btn-primary cancel">Cancel</a>
+						</div>
+					</div>
 
-				<div class="col-sm-1  submit_btn">
+				</c:when>
+				<c:otherwise>
+					<div class="row btn-margin form-row">
 
-					<input type="submit"
-						class="btn btn-default btn-primary register_btn" value="Submit">
-				</div>
-				<div class="col-sm-2">
+						<div class="col-sm-1  submit_btn">
 
-					<a href="Userlogin.jsp"
-						class="btn btn-default btn-primary btn_hide">Back to login</a>
-				</div>
-			</div>
+							<input type="submit"
+								class="btn btn-default btn-primary register_btn" value="Submit">
+						</div>
+						<div class="col-sm-2">
 
-</c:otherwise>
-</c:choose>
-					</form>
+							<a href="Userlogin.jsp"
+								class="btn btn-default btn-primary btn_hide">Back to login</a>
+						</div>
+					</div>
+
+				</c:otherwise>
+			</c:choose>
+		</form>
 	</div>
 
 	<!-- address code ends -->
@@ -512,6 +509,8 @@ session.setAttribute("userName", userName);
 		var uname = parsed.searchParams.get("user");
 		if (uname === 'ADD') {
 			$(".btn_hide").hide();
+			$(".cancel").attr("href", "AdminHomePage.jsp")
+
 		} else if (uname === 'adminEdit') {
 			$(".btn_hide").hide();
 			$("#default_img").hide();
@@ -526,7 +525,7 @@ session.setAttribute("userName", userName);
 				"max-width" : "170px",
 				"max-height" : "170px"
 			});
-			$(".cancel").attr("href","AdminHomePage.jsp")
+			$(".cancel").attr("href", "AdminHomePage.jsp")
 		} else if (uname === 'userEdit') {
 			$(".btn_hide").hide();
 			$("#default_img").hide();
@@ -541,7 +540,7 @@ session.setAttribute("userName", userName);
 				"max-width" : "170px",
 				"max-width" : "170px"
 			});
-			$(".cancel").attr("href","UserHomePage.jsp")
+			$(".cancel").attr("href", "UserHomePage.jsp")
 
 		} else if (uname === 'admin') {
 			$(".btn_hide").hide();
@@ -551,15 +550,14 @@ session.setAttribute("userName", userName);
 			$("#registration_form").attr("action", "UpdateProfile");
 			$("#mail").attr("readonly", "readonly");
 			$("#pwd").attr("readonly", "true");
-			$("#cpwd").attr("readonly", "true"); 
+			$("#cpwd").attr("readonly", "true");
 			$("#image_preview").css({
 				"display" : "block",
 				"max-width" : "170px",
 				"max-width" : "170px"
 			});
-			$(".cancel").attr("href","AdminHomePage.jsp")
-
-		}
+			$(".cancel").attr("href", "AdminHomePage.jsp")
+		} 
 	</script>
 	<jsp:include page="footer.jsp" />
 </body>

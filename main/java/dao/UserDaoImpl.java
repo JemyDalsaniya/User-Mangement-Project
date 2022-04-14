@@ -173,32 +173,30 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User displaySpecificUser(User user) throws SQLException {
 
-		// List<User> list = new ArrayList<User>();
+//		List<User> list = new ArrayList<User>();
 
 		PreparedStatement pstmt = conn.prepareStatement("select * from user where email= ? and password = ?");
 		pstmt.setString(1, user.getUserEmail());
 		pstmt.setString(2, user.getUserPassword());
 		ResultSet rs = pstmt.executeQuery();
-
+		User us = new User();
 		while (rs.next()) {
-			user = new User();
-			user.setUserId(rs.getInt("user_id"));
-			user.setUserName(rs.getString("name"));
-			user.setUserEmail(rs.getString("email"));
-			user.setUserContact(rs.getString("contact"));
-			user.setUserDOB(rs.getString("dob"));
-			user.setUserGender(rs.getString("gender"));
+			// user = new User();
+			us.setUserId(rs.getInt("user_id"));
+			us.setUserName(rs.getString("name"));
+			us.setUserEmail(rs.getString("email"));
+			us.setUserContact(rs.getString("contact"));
+			us.setUserDOB(rs.getString("dob"));
+			us.setUserGender(rs.getString("gender"));
 			Blob blob = rs.getBlob("profile_img");
 
 			byte[] photo = blob.getBytes(1, (int) blob.length());
 			String base64Image = Base64.getEncoder().encodeToString(photo);
-			user.setBase64Image(base64Image);
-			user.setUserHobby(rs.getString("hobby"));
-			// list.add(user);
-			// System.out.println("updated user list" + list);
+			us.setBase64Image(base64Image);
+			us.setUserHobby(rs.getString("hobby"));
+//			list.add(us);
 		}
-
-		return user;
+		return us;
 	}
 
 	@Override

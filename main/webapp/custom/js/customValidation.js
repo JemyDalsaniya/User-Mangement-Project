@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-	var count = 0;
 	$("#name_error").hide();
 	$("#email_error").hide();
 	$("#password_error").hide();

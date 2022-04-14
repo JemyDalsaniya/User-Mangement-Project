@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <!--  <script type="text/javascript">
    function preventBack(){window.history.forward();}
@@ -16,7 +15,7 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="custom/css/style.css">
-<style type="text/css" rel="stylesheet">
+<style type="text/css">
 table {
 	background-color: #626262 !important;
 	color: white;
@@ -39,8 +38,8 @@ td, h2 {
 </head>
 
 <body class="bg_custom_color">
- 	<c:set var="user" scope="session" value="${sessionScope.CurrentUser}" />
- 	<nav class="navbar navbar-inverse">
+<%--  	<c:set var="user" scope="session" value="${sessionScope.specificUserData}" />
+ --%> 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -61,7 +60,7 @@ td, h2 {
 							class="sr-only">(current)</span></a>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="Logout">Logout</a></li>
+					<li><a href="Userlogin.jsp">Logout</a></li>
 				</ul>
 			</div>
 		</div>
@@ -70,40 +69,42 @@ td, h2 {
 	<div class="container">
 		<h2>User Details</h2>
 		<table class="table table-bordered table-dark table_border">
-<%-- 			<c:forEach var="user" items="${specificUserData}">
- 			<c:forEach var="user" items="${specificUserData}">--%>
+		
+<%-- 			<c:forEach items="${specificUserData}"  var="specificUserData">
+ --%>			
 				<tr>
 					<td>Name</td>
-					<td>${user.userName}</td>
+					<td>${specificUserData.userName}</td>
 				</tr>
 				<tr>
 
 					<td>Email</td>
-					<td>${user.userEmail}</td>
+					<td>${specificUserData.userEmail}</td>
 				</tr>
 
 				<tr>
 					<td>Contact</td>
-					<td>${user.userContact}</td>
+					<td>${specificUserData.userContact}</td>
 				</tr>
 				<tr>
 					<td>Gender</td>
-					<td>${user.userGender}</td>
+					<td>${specificUserData.userGender}</td>
 				</tr>
 				<tr>
 					<td>Hobby</td>
-					<td>${user.userHobby}</td>
+					<td>${specificUserData.userHobby}</td>
 				</tr>
 				<tr>
 					<td>Profile Picture</td>
-					<td><img src="data:image/jpg;base64,${user.base64Image}"
+					<td><img src="data:image/jpg;base64,${specificUserData.base64Image}"
 						width="100" height="100"></td>
-
 				</tr>
 				<tr>
 					<td>Date of Birth</td>
-					<td>${user.userDOB}</td>
+					<td>${specificUserData.userDOB}</td>
 				</tr>
+<%-- 								</c:forEach>
+ --%>				
 				<c:forEach var="address" items="${AddressList}" varStatus="count">
 					<tr>
 						<td>Address</td>
@@ -117,8 +118,8 @@ td, h2 {
 					</tr>
 				</c:forEach>
 
-<%-- 			</c:forEach>
- --%>		</table>
+			
+ 		</table>
 	</div>
 
 	<jsp:include page="footer.jsp"></jsp:include>

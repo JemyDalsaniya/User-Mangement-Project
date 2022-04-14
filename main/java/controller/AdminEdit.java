@@ -29,14 +29,19 @@ public class AdminEdit extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
+//		HttpSession session = request.getSession();
+//		session.removeAttribute("CurrentUser");
+//		RequestDispatcher req = request.getRequestDispatcher("UserRegister.jsp?user=ADD");
+//		req.forward(request, response);
 
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String userId = request.getParameter("userId");
 		HttpSession session = request.getSession();
+		// String uName = (String) session.getAttribute("userName");
+		String userId = request.getParameter("userId");
 		UserService service = new UserServiceImpl();
 		AddressService addService = new AddressServiceImpl();
 
@@ -47,7 +52,7 @@ public class AdminEdit extends HttpServlet {
 			session.setAttribute("CurrentUser", user);
 			List<Address> listAddress = addService.getAllAddress(Integer.parseInt(userId));
 			session.setAttribute("AddressList", listAddress);
-			RequestDispatcher req = request.getRequestDispatcher("UserRegister.jsp");
+			RequestDispatcher req = request.getRequestDispatcher("UserRegister.jsp?user=ADD");
 			req.forward(request, response);
 
 		} catch (SQLException e) {

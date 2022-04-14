@@ -42,12 +42,12 @@ public class Userlogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
 		UserService service = new UserServiceImpl();
 		AddressService addservice = new AddressServiceImpl();
-
+		// User user = (User) session.getAttribute("CurrentUser");
 		User user = new User();
 		response.setContentType("text/html");
-		HttpSession session = request.getSession();
 
 		EncryptionFile ee = null;
 		try {
@@ -87,14 +87,15 @@ public class Userlogin extends HttpServlet {
 					System.out.println("user value in userlogin......" + list2);
 					// int id = list2.get(0).getUserId();
 					int id = list2.getUserId();
+					session.setAttribute("CurrentUser", user);
+					session.setAttribute("specificUserData", list2);
+
 					listAddress = addservice.getAllAddress(id);
 					System.out.println("listAddress" + listAddress);
-					session.setAttribute("specificUserData", list2);
 					session.setAttribute("AddressList", listAddress);
-					session.setAttribute("CurrentUser", user);
 					// session.setAttribute("user", user);
 					RequestDispatcher req = request.getRequestDispatcher("UserHomePage.jsp");
-					req.forward(request, response);
+					req.include(request, response);
 				} catch (SQLException e) {
 					// e.printStackTrace();
 					logger.info(e.toString());

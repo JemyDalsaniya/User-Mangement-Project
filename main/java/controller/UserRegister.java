@@ -109,7 +109,7 @@ public class UserRegister extends HttpServlet {
 		for (int i = 0; i < hobby.length; i++) {
 			hobbies += hobby[i] + ",";
 		}
-		user.setUserHobby(hobbies);
+		user.setUserHobby(hobbies.substring(0, hobbies.length() - 1));
 
 		user.setUserPassword(ee.encrypt(request.getParameter("password")));
 
@@ -135,7 +135,8 @@ public class UserRegister extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		String uName = (String) session.getAttribute("userName");
-		if (uName != null) {
+		System.out.println("uName" + uName);
+		if (uName.equals("ADD")) {
 			response.sendRedirect("AdminHomePage.jsp");
 		} else {
 			response.sendRedirect("Userlogin.jsp");

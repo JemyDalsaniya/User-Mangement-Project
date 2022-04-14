@@ -57,7 +57,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User displaySpecificUser(User user) throws SQLException {
-		return object.displaySpecificUser(user);
+
+		UserDao obj = new UserDaoImpl();
+		System.out.print("in service " + obj.displaySpecificUser(user));
+		return obj.displaySpecificUser(user);
+
 	}
 
 	@Override
