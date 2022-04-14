@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletConfig;
@@ -136,10 +137,20 @@ public class UserRegister extends HttpServlet {
 		HttpSession session = request.getSession();
 		String uName = (String) session.getAttribute("userName");
 		System.out.println("uName" + uName);
-		if (uName.equals("ADD")) {
-			response.sendRedirect("AdminHomePage.jsp");
-		} else {
+		if (uName != null) {
 			response.sendRedirect("Userlogin.jsp");
+		} else {
+			// UserService service = new UserServiceImpl();
+			List<User> adminList;
+			try {
+				adminList = service.displayAdmin(user);
+				session.setAttribute("adminList", adminList);
+				List<Address> listAddress = addservice.getAllAddress(id);
+				session.setAttribute("AddressList", listAddress);
+				response.sendRedirect("AdminHomePage.jsp");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

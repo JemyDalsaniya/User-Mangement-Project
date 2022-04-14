@@ -16,7 +16,6 @@ session.setAttribute("userName", userName);
 
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="ISO-8859-1">
 <title>Registration Form</title>
@@ -65,137 +64,273 @@ session.setAttribute("userName", userName);
 			enctype="multipart/form-data">
 			<h3 style="text-align: center" class="margin_top_file header_tag">Registration
 				Form</h3>
+			<c:choose>
+				<c:when
+					test="${(profile == 'admin') || (profile == 'userEdit') || (profile == 'adminEdit')}">
 
-			<div class="row form-row">
-				<div class="col-md-6">
+					<div class="row form-row">
+						<div class="col-md-6">
 
-					<div class="form-group">
-						<label for="img">Profile picture:</label><input type="file"
-							id="img" name="img" /> <img
-							src="custom/image/default_profile.jpg" name="default_img"
-							style="width: 170px; height: 170px;" id="default_img"> <img
-							src="data:image/jpg;base64,${user.base64Image}"
-							id="image_preview" style="display: none" /><br /> <input
-							type="hidden" value="${user.base64Image}" name="oldImage">
-						<br /> <span id="image_error"></span>
+							<div class="form-group">
+								<label for="img">Profile picture:</label><input type="file"
+									id="img" name="img" /> <img
+									src="custom/image/default_profile.jpg" name="default_img"
+									style="width: 170px; height: 170px;" id="default_img"> <img
+									src="data:image/jpg;base64,${user.base64Image}"
+									id="image_preview" style="display: none" /><br /> <input
+									type="hidden" value="${user.base64Image}" name="oldImage">
+								<br /> <span id="image_error"></span>
+							</div>
+
+						</div>
 					</div>
 
-				</div>
-			</div>
+					<div class="row form-row ">
+						<div class="col-md-6">
+							<!-- First Name -->
+							<div class="form-group">
+								<label for="fname">Full Name:</label> <input type="text"
+									class="form-control text-width" id="name" name="name"
+									placeholder="Enter your name" value="${user.userName}" /><span
+									id="name_error"></span>
+							</div>
+						</div>
+						<div class="col-md-6">
 
-			<div class="row form-row ">
-				<div class="col-md-6">
-					<!-- First Name -->
-					<div class="form-group">
-						<label for="fname">Full Name:</label> <input type="text"
-							class="form-control text-width" id="name" name="name"
-							placeholder="Enter your name" value="${user.userName}" /><span
-							id="name_error"></span>
-					</div>
-				</div>
-				<div class="col-md-6">
+							<!-- Phone Number -->
+							<div class="form-group">
+								<label>Contact No:</label> <input type="text"
+									class="form-control" id="contact" placeholder="Phone number"
+									name="contact" value="${user.userContact}" /> <span
+									id="contact_error"></span>
+							</div>
 
-					<!-- Phone Number -->
-					<div class="form-group">
-						<label>Contact No:</label> <input type="text" class="form-control"
-							id="contact" placeholder="Phone number" name="contact"
-							value="${user.userContact}" /> <span id="contact_error"></span>
-					</div>
-
-				</div>
-			</div>
-
-			<div class="row form-row">
-				<div class="col-md-6">
-					<!-- Email  -->
-					<div class="form-group">
-						<label for="mail">Email:</label> <input type="text"
-							class="form-control text-width" id="mail" placeholder="Email-id"
-							name="email" value="${user.userEmail}" /> <span id="email_error"></span><br>
-						<span id="result"></span>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<!-- password -->
-					<div class="form-group">
-						<label for="pwd">Password:</label> <input type="password"
-							class="form-control text-width" id="pwd" placeholder="Password"
-							name="password" value="${user.userPassword}" /> <span
-							id="password_error"></span>
-					</div>
-				</div>
-			</div>
-
-			<div class="row form-row">
-
-				<!-- Radio btn  -->
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="id1">Gender:</label><br /> <label
-							class="radio-inline radio-class"> <input type="radio"
-							name="gender" id="id1" value="female"
-							${user.userGender  eq 'female' ? 'checked' : ''} /> Female
-						</label><br /> <label class="radio-inline radio-class"> <input
-							type="radio" name="gender" id="id2" value="male"
-							${user.userGender  eq 'male' ? 'checked' : ''} /> Male
-						</label><br /> <span id="radio_error"></span>
-					</div>
-				</div>
-
-				<!-- confirm password -->
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="pwd2">Confirm Password:</label> <input type="password"
-							class="form-control text-width" id="cpwd" name="cpassword"
-							placeholder="Confirm-Password" value="${user.userPassword}" /> <span
-							id="confirm_password_error"></span>
-					</div>
-				</div>
-
-			</div>
-
-			<div class="row form-row">
-				<div class="col-md-6">
-
-					<!-- Hobby -->
-					<label>Hobby</label> <br />
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="check1"
-							name="options" value="Sports"
-							${fn:contains(user.userHobby, 'Sports')  ? 'checked' : ''}>
-						<label class="form-check-label" for="check1">Sports</label>
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="check2"
-							name="options" value="Study"
-							${fn:contains(user.userHobby, 'Study')  ? 'checked' : ''}>
-						<label class="form-check-label" for="check2">Study</label>
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="check3"
-							name="options" value="Dance"
-							${fn:contains(user.userHobby, 'Dance')  ? 'checked' : ''}>
-						<label class="form-check-label">Dance</label>
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="check4"
-							name="options" value="Music"
-							${fn:contains(user.userHobby, 'Music')  ? 'checked' : ''}>
-						<label class="form-check-label">Music</label> <br /> <span
-							id="check_error"></span>
+						</div>
 					</div>
 
-				</div>
-				<div class="col-md-6">
-					<!-- image upload -->
-					<div class="form-group">
-						<label for="fname">Date Of Birth:</label> <input type="date"
-							class="form-control text-width" id="dob" name="dob"
-							value="${user.userDOB}" /> <span id="dob_error"></span>
+					<div class="row form-row">
+						<div class="col-md-6">
+							<!-- Email  -->
+							<div class="form-group">
+								<label for="mail">Email:</label> <input type="text"
+									class="form-control text-width" id="mail"
+									placeholder="Email-id" name="email" value="${user.userEmail}" />
+								<span id="email_error"></span><br> <span id="result"></span>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<!-- password -->
+							<div class="form-group">
+								<label for="pwd">Password:</label> <input type="password"
+									class="form-control text-width" id="pwd" placeholder="Password"
+									name="password" value="${user.userPassword}" /> <span
+									id="password_error"></span>
+							</div>
+						</div>
 					</div>
-				</div>
 
-			</div>
+					<div class="row form-row">
+
+						<!-- Radio btn  -->
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="id1">Gender:</label><br /> <label
+									class="radio-inline radio-class"> <input type="radio"
+									name="gender" id="id1" value="female"
+									${user.userGender  eq 'female' ? 'checked' : ''} /> Female
+								</label><br /> <label class="radio-inline radio-class"> <input
+									type="radio" name="gender" id="id2" value="male"
+									${user.userGender  eq 'male' ? 'checked' : ''} /> Male
+								</label><br /> <span id="radio_error"></span>
+							</div>
+						</div>
+
+						<!-- confirm password -->
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="pwd2">Confirm Password:</label> <input
+									type="password" class="form-control text-width" id="cpwd"
+									name="cpassword" placeholder="Confirm-Password"
+									value="${user.userPassword}" /> <span
+									id="confirm_password_error"></span>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row form-row">
+						<div class="col-md-6">
+
+							<!-- Hobby -->
+							<label>Hobby</label> <br />
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="check1"
+									name="options" value="Sports"
+									${fn:contains(user.userHobby, 'Sports')  ? 'checked' : ''}>
+								<label class="form-check-label" for="check1">Sports</label>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="check2"
+									name="options" value="Study"
+									${fn:contains(user.userHobby, 'Study')  ? 'checked' : ''}>
+								<label class="form-check-label" for="check2">Study</label>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="check3"
+									name="options" value="Dance"
+									${fn:contains(user.userHobby, 'Dance')  ? 'checked' : ''}>
+								<label class="form-check-label">Dance</label>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="check4"
+									name="options" value="Music"
+									${fn:contains(user.userHobby, 'Music')  ? 'checked' : ''}>
+								<label class="form-check-label">Music</label> <br /> <span
+									id="check_error"></span>
+							</div>
+
+						</div>
+						<div class="col-md-6">
+							<!-- image upload -->
+							<div class="form-group">
+								<label for="fname">Date Of Birth:</label> <input type="date"
+									class="form-control text-width" id="dob" name="dob"
+									value="${user.userDOB}" /> <span id="dob_error"></span>
+							</div>
+						</div>
+
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="row form-row">
+						<div class="col-md-6">
+
+							<div class="form-group">
+								<!-- <label for="img">Profile picture:</label><input type="file"
+									id="img" name="img" /> <img
+									src="custom/image/default_profile.jpg" name="default_img"
+									style="width: 170px; height: 170px;" id="default_img"> <br />
+								<span id="image_error"></span> -->
+
+								<label for="img">Profile picture:</label> <input type="file"
+									id="img2" name="img" /> <img
+									src="custom/image/default_profile.jpg" name="default_img"
+									style="width: 170px; height: 170px;" id="default_img2"><img
+									src="data:image/jpg;base64,${user.base64Image}"
+									id="image_preview2" style="display: none" /> <br /> <span
+									id="image_error2"></span>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="row form-row ">
+						<div class="col-md-6">
+							<!-- First Name -->
+							<div class="form-group">
+								<label for="fname">Full Name:</label> <input type="text"
+									class="form-control text-width" id="name" name="name"
+									placeholder="Enter your name" /><span id="name_error"></span>
+							</div>
+						</div>
+						<div class="col-md-6">
+
+							<!-- Phone Number -->
+							<div class="form-group">
+								<label>Contact No:</label> <input type="text"
+									class="form-control" id="contact" placeholder="Phone number"
+									name="contact" /> <span id="contact_error"></span>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="row form-row">
+						<div class="col-md-6">
+							<!-- Email  -->
+							<div class="form-group">
+								<label for="mail">Email:</label> <input type="text"
+									class="form-control text-width" id="mail"
+									placeholder="Email-id" name="email" /> <span id="email_error"></span><br>
+								<span id="result"></span>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<!-- password -->
+							<div class="form-group">
+								<label for="pwd">Password:</label> <input type="password"
+									class="form-control text-width" id="pwd" placeholder="Password"
+									name="password" /> <span id="password_error"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="row form-row">
+
+						<!-- Radio btn  -->
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="id1">Gender:</label><br /> <label
+									class="radio-inline radio-class"> <input type="radio"
+									name="gender" id="id1" value="female" /> Female
+								</label><br /> <label class="radio-inline radio-class"> <input
+									type="radio" name="gender" id="id2" value="male" /> Male
+								</label><br /> <span id="radio_error"></span>
+							</div>
+						</div>
+
+						<!-- confirm password -->
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="pwd2">Confirm Password:</label> <input
+									type="password" class="form-control text-width" id="cpwd"
+									name="cpassword" placeholder="Confirm-Password" /> <span
+									id="confirm_password_error"></span>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row form-row">
+						<div class="col-md-6">
+
+							<!-- Hobby -->
+							<label>Hobby</label> <br />
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="check1"
+									name="options" value="Sports"> <label
+									class="form-check-label" for="check1">Sports</label>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="check2"
+									name="options" value="Study"> <label
+									class="form-check-label" for="check2">Study</label>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="check3"
+									name="options" value="Dance"> <label
+									class="form-check-label">Dance</label>
+							</div>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="check4"
+									name="options" value="Music"> <label
+									class="form-check-label">Music</label> <br /> <span
+									id="check_error"></span>
+							</div>
+
+						</div>
+						<div class="col-md-6">
+							<!-- image upload -->
+							<div class="form-group">
+								<label for="fname">Date Of Birth:</label> <input type="date"
+									class="form-control text-width" id="dob" name="dob" /> <span
+									id="dob_error"></span>
+							</div>
+						</div>
+
+					</div>
+				</c:otherwise>
+			</c:choose>
 			<!-- jQuery plugin code -->
 			<label class="address_label_margin">Address:</label>
 
@@ -463,8 +598,45 @@ session.setAttribute("userName", userName);
 	<script src="custom/js/plugin.js" type="text/javascript"></script>
 	<script type="text/javascript" src="custom/js/customValidation.js"></script>
 	<script type="custom/js/adduser.js"></script>
-	<!-- <script type="custom/js/custom.js"></script> -->
+	<script>
+		
+	$(document).ready( function() {
+		$("#image_error2").hide();
+		$("#img2").change(function() {
+			check_file2();
+			img_preview2(this);
+		});
+		$("#img2").focusout(function() {
+			$("#image_error2").hide();
+		});
+		function check_file2() {
+			var file = $("#img2").val();
+			var fileType = file.split('.').pop().toLowerCase();
+			if ($("#img2")[0].files.length !== 0) {
+				
+				$("#default_img2").css("display", "none");
+				
+			 if ($.inArray(fileType, ['png', 'jpg', 'jpeg']) == -1) {
+				$("#image_error2").html("Please select valid file!!").css("color", "red");
+				$("#image_error2").show();
+				$("#image_preview2").css("display", "none");
+				image_error = true;
+			}			
+			}
+		}	
+		function img_preview2(input) {
+			if (input.files && input.files[0]) {
+				var file = new FileReader();
+				file.onload = function(e) {
+					$("#image_preview2").attr('src', e.target.result).css({ "display": "block", "max-width": "170px", "max-height": "170px" });
+				}
+				file.readAsDataURL(input.files[0]);
+			} 
+		}
 
+	});
+	
+	</script>
 	<script>
 		$(document).ready(
 				function() {
@@ -557,7 +729,7 @@ session.setAttribute("userName", userName);
 				"max-width" : "170px"
 			});
 			$(".cancel").attr("href", "AdminHomePage.jsp")
-		} 
+		}
 	</script>
 	<jsp:include page="footer.jsp" />
 </body>

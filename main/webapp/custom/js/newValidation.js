@@ -1,107 +1,13 @@
 $(document).ready(function() {
 
-	$("#name_error").hide();
-	$("#email_error").hide();
-	$("#password_error").hide();
-	$("#confirm_password_error").hide();
-	$("#contact_error").hide();
-	$("#radio_error").hide();
-	$("#check_error").hide();
+	
 	$("#image_error").hide();
-	$("#pincode_error").hide();
-	$("#landmark_error").hide();
-	$("#street_error").hide();
-	$("#city_error").hide();
-	$("#state_error").hide();
-	$("#dob_error").hide();
+	
 
-	var name_error = false;
-	var email_error = false;
-	var password_error = false;
-	var confirm_password_error = false;
-	var contact_error = false;
-	var radio_error = false;
-	var check_error = false;
+	
 	var image_error = false;
-	var pincode_error = false;
-	var landmark_error = false;
-	var street_error = false;
-	var city_error = false;
-	var state_error = false;
-	var dob_error = false;
-	//var selector;
-
-	//Other field validation
-	$("#name").focusout(function() {
-		$("#name_error").hide();
-		$("#name").css("border-bottom", "none");
-	});
-	$("#name").keyup(function() {
-		check_name();
-	});
-	$("#name").focus(function() {
-		check_name();
-	});
-
-	$("#mail").focusout(function() {
-		$("#email_error").hide();
-		$("#mail").css("border-bottom", "none");
-	});
-	$("#mail").keyup(function() {
-		check_email();
-	});
-	$("#mail").focus(function() {
-		check_email();
-	});
-
-	$("#pwd").focusout(function() {
-		$("#password_error").hide();
-		$("#pwd").css("border-bottom", "none");
-	});
-	$("#pwd").keyup(function() {
-		check_password();
-	});
-	$("#pwd").focus(function() {
-		check_password();
-	});
-
-	$("#cpwd").focusout(function() {
-		$("#confirm_password_error").hide();
-		$("#cpwd").css("border-bottom", "none");
-	});
-	$("#cpwd").keyup(function() {
-		check_confirm_password();
-	});
-	$("#cpwd").focus(function() {
-		check_confirm_password();
-	});
-
-	$("#contact").focusout(function() {
-		$("#contact_error").hide();
-		$("#contact").css("border-bottom", "none");
-	});
-	$("#contact").keyup(function() {
-		check_contact();
-	});
-	$("#contact").focus(function() {
-		check_contact();
-	});
-
-
-	$('input[name="gender"]').change(function() {
-		check_radio();
-	});
-	$('input[name="gender"]').focusout(function() {
-		$("#radio_error").hide();
-	});
-
-	$('input[name="options"]').change(function() {
-		check_checkbox();
-	});
-	$('input[name="options"]').focusout(function() {
-		$("#check_error").hide();
-	});
-
+	
+	
 	$("#img").change(function() {
 		check_file();
 		img_preview(this);
@@ -109,15 +15,6 @@ $(document).ready(function() {
 	$("#img").focusout(function() {
 		$("#image_error").hide();
 	});
-
-
-	$("#dob").change(function() {
-		check_date();
-	});
-	$("#dob").focusout(function() {
-		$("#dob_error").hide();
-	});
-
 
 	$('a#add-more').cloneData({
 		mainContainerId: 'main-container', // Main container Should be ID
